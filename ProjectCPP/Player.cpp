@@ -2,7 +2,7 @@
 
 Player::Player() {
 
-	this->setTexture("C:/Users/alexa/source/repos/ProjectCPP/ProjectCPP/player-plane-sprite-sheet-2.png");
+	this->setTexture("player-plane-sprite-sheet-2.png");
 	this->setSpriteRect(IntRect(0, 0, 50, 63));
 	this->setTextureSmooth();
 	this->setSpriteOrigin(Vector2f(20, 0));
