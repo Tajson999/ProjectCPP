@@ -4,9 +4,15 @@
 class BasicEnemy:public Entity{
 private:
 	int life;
+	int stage;
+	double a;
+	double b;
+	double radiant;
 public:
 	BasicEnemy();
 	~BasicEnemy();
+
+	void update(Time deltaTime);
 
 
 };

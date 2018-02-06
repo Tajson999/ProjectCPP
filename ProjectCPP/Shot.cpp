@@ -1,12 +1,12 @@
 #include "Shot.h"
 
-Shot::Shot(int life) {
+Shot::Shot(double life) {
 	this->lifeSpan = life;
 	this->setTexture("bullet.png");
 	this->setTextureSmooth();
 }
 
-Shot::Shot(Vector2f v, int life) {
+Shot::Shot(Vector2f v, double life) {
 	this->lifeSpan = life;
 	this->setTexture("bullet.png");
 	this->setTextureSmooth();
@@ -23,4 +23,12 @@ int Shot::getLifeSpan() {
 void Shot::setLifeSpan(int l) {
 	this->lifeSpan = l;
 }
+
+void Shot::update(Time deltaTime) {
+	
+	this->move(Vector2f(0, -1 * deltaTime.asMilliseconds()));
+	this->lifeSpan -= deltaTime.asMilliseconds();
+}
+
+
 

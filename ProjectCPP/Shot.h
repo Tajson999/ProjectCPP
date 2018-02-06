@@ -7,13 +7,14 @@ using namespace std;
 using namespace sf;
 class Shot: public Entity {
 private:
-	int lifeSpan;
+	double lifeSpan;
 public:
-	Shot(int life = 240);
-	Shot(Vector2f v, int life = 240);
+	Shot(double life = 800);
+	Shot(Vector2f v, double life = 800);
 	~Shot();
 	int getLifeSpan();
 	void setLifeSpan(int l);
+	void update(Time deltaTime);
 };
 #endif // !SHOT_H
 

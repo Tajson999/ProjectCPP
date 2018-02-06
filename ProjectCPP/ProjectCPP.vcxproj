@@ -79,20 +79,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BasicEnemy.cpp" />
-    <ClCompile Include="EnemyHandler.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityHandler.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shot.cpp" />
-    <ClCompile Include="ShotHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicEnemy.h" />
-    <ClInclude Include="EnemyHandler.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityHandler.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shot.h" />
-    <ClInclude Include="ShotHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

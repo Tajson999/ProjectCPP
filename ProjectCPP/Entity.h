@@ -17,10 +17,12 @@ public:
 	void setTextureSmooth();
 	void setSpriteOrigin(Vector2f v);
 	void setSpriteRect(IntRect r);
+	void rotateSprite(int angel); //angel in degree
 	void move(Vector2f v);
 	void setSpritePosition(Vector2f v);
 	Texture getTexture();
 	Sprite getSprite();
+	virtual void update(Time deltaTime) = 0;
 	
 
 

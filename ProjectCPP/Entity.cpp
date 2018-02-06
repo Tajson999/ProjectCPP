@@ -33,6 +33,10 @@ void Entity::setSpriteRect(IntRect r) {
 	this->sprite.setTextureRect(r);
 }
 
+void Entity::rotateSprite(int angel) {
+	this->sprite.rotate(angel);
+}
+
 void Entity::move(Vector2f v) {
 	this->sprite.move(v);
 }

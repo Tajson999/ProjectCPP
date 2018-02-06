@@ -30,10 +30,7 @@
     <ClCompile Include="BasicEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShotHandler.cpp">
+    <ClCompile Include="EntityHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,10 +47,7 @@
     <ClInclude Include="BasicEnemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShotHandler.h">
+    <ClInclude Include="EntityHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,6 +10,7 @@ using namespace sf;
 using namespace std;
 class Player :public Entity{
 private:
+	double invulnerability;
 	int score;
 	double life;
 public:
@@ -19,10 +20,12 @@ public:
 	void setLife(double l);
 	int getScore()const;
 	void setScore(int s);
-	void moveUp();
-	void moveDown();
-	void moveRight();
-	void moveLeft();
+	void takeDamage(double damage);
+	void moveUp(Time deltaTime);
+	void moveDown(Time deltaTime);
+	void moveRight(Time deltaTime);
+	void moveLeft(Time deltaTime);
+	void update(Time deltaTime);
 };
 #endif // !PLAYER_H
 
