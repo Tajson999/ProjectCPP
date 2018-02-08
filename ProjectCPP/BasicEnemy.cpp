@@ -1,19 +1,32 @@
 #include "BasicEnemy.h"
 #include <iostream>
-BasicEnemy::BasicEnemy() :Entity(){
+BasicEnemy::BasicEnemy() :Enemy(){
 	int life = 1;
 	this->setTexture("enemy1.png");
 	this->rotateSprite(180);
 	this->setSpritePosition(Vector2f(200, 0));
+	this->setSpriteScale(Vector2f(0.6, 0.6));
 	this->a = this->getSprite().getPosition().x;
 	this->b = this->getSprite().getPosition().y;
 	this->radiant = 0;
-	cout << "Created enemy with center:" << this->a << "," << this->b << endl;
 }
 
 BasicEnemy::~BasicEnemy() {
 
 }
+
+void BasicEnemy::setA(double a){
+	this->a = a;
+}
+
+void BasicEnemy::setB(double b){
+	this->b = b;
+}
+
+void BasicEnemy::setRadiant(double r){
+	this->radiant = r;
+}
+
 
 void BasicEnemy::update(Time deltaTime) {
 	if (this->stage == 0) {

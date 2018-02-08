@@ -16,11 +16,14 @@ int main() {
 
 	Player p1 = Player();
 	EntityHandler eH = EntityHandler();
-	eH.addBasicEnemy();
-	
-
+	cout << "hej" << endl;
+	eH.spawnBasicEnemy(Vector2f(100,100));
 	//need a path for sprites to move on	array with directions?
-	
+
+	Sprite *shotArr = new Sprite[50];
+	int shots = 0;
+	Sprite *enemyArr = new Sprite[100];
+	int enemies = 0;
 	while (window.isOpen() && p1.getLife() > 0) {
 		Time deltaTime = clock.restart();
 		sf::Event event;
@@ -46,47 +49,35 @@ int main() {
 			p1.moveDown(deltaTime);
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Space)) {
-			eH.addShot(p1.getSprite().getPosition());
+			p1.shoot();
+			//out << p1.getShotCD() << endl;
 		}
 		if (!Keyboard::isKeyPressed(Keyboard::Up) && !Keyboard::isKeyPressed(Keyboard::Down) && !Keyboard::isKeyPressed(Keyboard::Left) && !Keyboard::isKeyPressed(Keyboard::Right)) {
 			p1.setSpriteRect(IntRect(0, 0, 50, 63));
 		}
-		p1.update(deltaTime);
-		Sprite *entityArr = new Sprite[eH.getNrOfEntities()];
-		eH.updateEntites(entityArr, deltaTime);
+		eH.spawnEnemies();
+		p1.update(shotArr,shots, deltaTime);
+		eH.updateEntites(enemyArr, enemies, shotArr, shots, deltaTime);
 
-		/*bool found = false;
-		for (int i = 0; i < eH.getNrOfEnemies(); i++) {
-			found = false;
-
-			if (EnemyArr[i].getGlobalBounds().intersects(p1.getSprite().getGlobalBounds())) {
-				p1.takeDamage(1);
-			}
-			for (int j = 0; j < sH.getNrOfShots() && found == false; j++) {
-				if (EnemyArr[i].getGlobalBounds().intersects(ShotsArr[i].getGlobalBounds())) {
-					eH.removeEnemy(i);
-					found = true;
-				}
-			}
-		}*/
-
-
-		
 		window.clear();
-		for (int i = 0; i < eH.getNrOfEntities(); i++) {
-			window.draw(entityArr[i]);
+		for (int i = 0; i < shots; i++) {
+			window.draw(shotArr[i]);
 		}
+		for (int i = 0; i < enemies; i++) {
+			window.draw(enemyArr[i]);
+		}
+		
+		
 		window.draw(p1.getSprite());
 
 
 
 		window.display();
-		delete[] entityArr;
-
-	}
+		}
 	if (p1.getLife() <= 0) {
 		window.close();
 	}
+	delete[] shotArr;
 	getchar();
 
 	return 0;

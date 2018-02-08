@@ -37,6 +37,15 @@ void Entity::rotateSprite(int angel) {
 	this->sprite.rotate(angel);
 }
 
+void Entity::setSpriteColor(int a, int b, int c)
+{
+	this->sprite.setColor(Color(a,b,c));
+}
+
+void Entity::setSpriteScale(Vector2f v){
+	this->sprite.setScale(v);
+}
+
 void Entity::move(Vector2f v) {
 	this->sprite.move(v);
 }

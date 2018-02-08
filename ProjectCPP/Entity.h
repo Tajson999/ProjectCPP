@@ -18,6 +18,8 @@ public:
 	void setSpriteOrigin(Vector2f v);
 	void setSpriteRect(IntRect r);
 	void rotateSprite(int angel); //angel in degree
+	void setSpriteColor(int a, int b, int c);
+	void setSpriteScale(Vector2f v);
 	void move(Vector2f v);
 	void setSpritePosition(Vector2f v);
 	Texture getTexture();

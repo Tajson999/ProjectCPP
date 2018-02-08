@@ -1,20 +1,19 @@
 #ifndef SHOT_H
 #define SHOT_H
-#include <SFML/Graphics.hpp>
-#include <iostream>
 #include "Entity.h"
-using namespace std;
-using namespace sf;
-class Shot: public Entity {
+class Shot:public Entity{
 private:
+	int active;
 	double lifeSpan;
 public:
-	Shot(double life = 800);
-	Shot(Vector2f v, double life = 800);
+	Shot();
+	Shot(double lifespan);
 	~Shot();
 	int getLifeSpan();
 	void setLifeSpan(int l);
-	void update(Time deltaTime);
+
+	int getActive();
+	void setActive(int a);
+
 };
 #endif // !SHOT_H
-

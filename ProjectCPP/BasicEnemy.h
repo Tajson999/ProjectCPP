@@ -1,9 +1,8 @@
 #ifndef BASICENEMY_H
 #define BASICENEMY_H
-#include "Entity.h"
-class BasicEnemy:public Entity{
+#include "Enemy.h"
+class BasicEnemy:public Enemy{
 private:
-	int life;
 	int stage;
 	double a;
 	double b;
@@ -12,6 +11,9 @@ public:
 	BasicEnemy();
 	~BasicEnemy();
 
+	void setA(double a);
+	void setB(double b);
+	void setRadiant(double r);
 	void update(Time deltaTime);
 
 
