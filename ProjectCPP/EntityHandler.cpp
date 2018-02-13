@@ -59,7 +59,8 @@ int EntityHandler::getNrOfEntities() {
 
 
 void EntityHandler::spawnBasicEnemy(Vector2f v) {
-	for (int i = 0; i < this->capacity; i++) {
+	bool spawned = false;
+	for (int i = 0; i < this->capacity && spawned == false; i++) {
 		if (this->basicEnemyArr[i]->getActive() == 0) {
 			this->basicEnemyArr[i]->setSpritePosition(v);
 			this->basicEnemyArr[i]->setActive(1);
@@ -67,65 +68,46 @@ void EntityHandler::spawnBasicEnemy(Vector2f v) {
 			this->basicEnemyArr[i]->setA(this->basicEnemyArr[i]->getSprite().getPosition().x);
 			this->basicEnemyArr[i]->setB(this->basicEnemyArr[i]->getSprite().getPosition().y);
 			this->basicEnemyArr[i]->setRadiant(0);
-			/*
-			
-	this->a = this->getSprite().getPosition().x;
-	this->b = this->getSprite().getPosition().y;
-	this->radiant = 0;*/
+			spawned = true;
 		}
 	}
 }
 
 void EntityHandler::spawnEnemy2(Vector2f v){
-	for (int i = 0; i < this->capacity; i++) {
+	bool spawned = false;
+	for (int i = 0; i < this->capacity && spawned == false; i++) {
 		if (this->enemy2Arr[i]->getActive() == 0) {
 			this->enemy2Arr[i]->setSpritePosition(v);
 			this->enemy2Arr[i]->setActive(1);
 			this->enemy2Arr[i]->setLife(1);
+			spawned = true;
 		}
 	}
 }
 
-
-//void EntityHandler::removeEntity(int i) {
-//	this->nrOfEntites -= 1;
-//	if (i == this->nrOfEntites || this->nrOfEntites == 0) {
-//		delete this->entites[i];
-//		this->entites[i] = nullptr;
-//	}
-//	else {
-//		delete this->entites[i];
-//		this->entites[i] = this->entites[this->nrOfEntites];
-//		this->entites[this->nrOfEntites] = nullptr;
-//	}
-//}
-
-void EntityHandler::updateEntites(Sprite enemyArr[], int &enemyArrSize, Sprite shotArr[], int shotArrSize, Time deltaTime) {
+void EntityHandler::updateEntites(Sprite enemyArr[], int &enemyArrSize, Sprite shotArr[], int shotArrSize, Vector2u viewport, Time deltaTime) {
 	enemyArrSize = 0;
 	
-	//updating enemy and shot array
+	//updating enemy
 	for (int i = 0; i < this->capacity; i++) {
 		if (this->basicEnemyArr[i]->getActive() == 1) {
 			this->basicEnemyArr[i]->update(deltaTime);
+			if (this->basicEnemyArr[i]->isDestroyed(shotArr, shotArrSize, viewport)) {
+				this->deactivateEnemy(this->basicEnemyArr[i]);
+				cout << "Destoryed a basic Enemy " << endl;
+			}
 		}
 		if (this->enemy2Arr[i]->getActive() == 1) {
 			this->enemy2Arr[i]->update(deltaTime);
-		}
-		for (int j = 0; j < shotArrSize; j++) {
-			if (this->basicEnemyArr[i]->getSprite().getGlobalBounds().intersects(shotArr[j].getGlobalBounds())) {
-				this->basicEnemyArr[i]->setActive(0);
-				this->basicEnemyArr[i]->setSpritePosition(Vector2f(-200, -200));
+			if (this->enemy2Arr[i]->isDestroyed(shotArr, shotArrSize, viewport)) {
+				this->deactivateEnemy(this->enemy2Arr[i]);
+				cout << "Destoryed a basic Enemy " << endl;
 			}
-			if (this->enemy2Arr[i]->getSprite().getGlobalBounds().intersects(shotArr[j].getGlobalBounds())) {
-				this->enemy2Arr[i]->setActive(0);
-				this->enemy2Arr[i]->setSpritePosition(Vector2f(-200, -200));
-			}
+
 		}
-		
-		//if not shot
 		enemyArr[enemyArrSize] = this->basicEnemyArr[i]->getSprite();
 		enemyArrSize++;
-		enemyArr[i] = this->enemy2Arr[i]->getSprite();
+		enemyArr[enemyArrSize] = this->enemy2Arr[i]->getSprite();
 		enemyArrSize++;
 		
 
@@ -138,12 +120,44 @@ void EntityHandler::spawnEnemies(){
 	if (a % 5 == 0) {
 		if (this->spawnedThisCycle == false) {
 			cout << "spawned new enemies" << endl;
-			this->spawnBasicEnemy(Vector2f(100,200));
-			this->spawnEnemy2(Vector2f(0, 0));
+			this->spawnBasicEnemy(Vector2f(300,200));
+			this->spawnEnemy2(Vector2f(200, 20));
 			this->spawnedThisCycle = true;
 		}
 		
 	}else {
 		this->spawnedThisCycle = false;
 	}
+}
+
+void EntityHandler::deactivateEnemy(BasicEnemy *e){
+	e->setActive(0);
+	e->setSpritePosition(Vector2f(-200, -200));
+}
+
+void EntityHandler::deactivateEnemy(Enemy2 *e){
+	e->setActive(0);
+	e->setSpritePosition(Vector2f(-200, -200));
+}
+
+Enemy& EntityHandler::closestEnemy(Player p){
+	Enemy& closest = *this->basicEnemyArr[0];
+	double closestDis = 999, deltaDis;
+	int playerX = p.getSprite().getPosition().x;
+	int playerY = p.getSprite().getPosition().y;
+	for (int i = 0; i < this->capacity; i++) {
+		if (this->basicEnemyArr[i]->getActive() == 1) {
+			deltaDis = pow((pow((playerX - this->basicEnemyArr[i]->getSprite().getPosition().x),2) +	pow((playerY - this->basicEnemyArr[i]->getSprite().getPosition().y), 2)), .5);
+			if (deltaDis < closestDis) {
+				closest = *this->basicEnemyArr[i];
+			}
+		}
+		if (this->enemy2Arr[i]->getActive() == 1) {
+			deltaDis = pow((pow((playerX - this->enemy2Arr[i]->getSprite().getPosition().x), 2) + pow((playerY - this->enemy2Arr[i]->getSprite().getPosition().y), 2)), .5);
+			if (deltaDis < closestDis) {
+				closest = *this->enemy2Arr[i];
+			}
+		}
+	}
+	return closest;
 }

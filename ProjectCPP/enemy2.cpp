@@ -1,6 +1,6 @@
 #include "enemy2.h"
 #include <iostream>
-Enemy2::Enemy2() :Enemy(){
+Enemy2::Enemy2() :Enemy(2.0){
 	int life = 1;
 	this->setTexture("enemy1.png");
 	this->rotateSprite(180);

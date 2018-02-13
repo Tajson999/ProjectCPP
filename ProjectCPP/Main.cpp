@@ -10,15 +10,15 @@ using namespace std;
 using namespace sf;
 int main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	View viewport(FloatRect(0,0,800,600));
 	sf::RenderWindow window(sf::VideoMode(800, 600),"Window", sf::Style::Default);
+	window.setView(viewport);
 	Clock clock;
 
 
 	Player p1 = Player();
 	EntityHandler eH = EntityHandler();
-	cout << "hej" << endl;
 	eH.spawnBasicEnemy(Vector2f(100,100));
-	//need a path for sprites to move on	array with directions?
 
 	Sprite *shotArr = new Sprite[50];
 	int shots = 0;
@@ -55,22 +55,23 @@ int main() {
 		if (!Keyboard::isKeyPressed(Keyboard::Up) && !Keyboard::isKeyPressed(Keyboard::Down) && !Keyboard::isKeyPressed(Keyboard::Left) && !Keyboard::isKeyPressed(Keyboard::Right)) {
 			p1.setSpriteRect(IntRect(0, 0, 50, 63));
 		}
+		if (Keyboard::isKeyPressed(Keyboard::C)) {
+			p1.shootMissile(&eH.closestEnemy(p1));
+		}
 		eH.spawnEnemies();
 		p1.update(shotArr,shots, deltaTime);
-		eH.updateEntites(enemyArr, enemies, shotArr, shots, deltaTime);
+		eH.updateEntites(enemyArr, enemies, shotArr, shots,window.getSize(), deltaTime);
+		p1.checkDamage(enemyArr, enemies);
 
 		window.clear();
+
 		for (int i = 0; i < shots; i++) {
 			window.draw(shotArr[i]);
 		}
 		for (int i = 0; i < enemies; i++) {
 			window.draw(enemyArr[i]);
 		}
-		
-		
 		window.draw(p1.getSprite());
-
-
 
 		window.display();
 		}
@@ -78,6 +79,7 @@ int main() {
 		window.close();
 	}
 	delete[] shotArr;
+	delete[] enemyArr;
 	getchar();
 
 	return 0;

@@ -3,16 +3,20 @@
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "BasicShot.h"
+#include "Enemy.h"
+#include "Missile.h"
 using namespace sf;
 using namespace std;
 class Player :public Entity{
 private:
 	Shot **shotArr;
+	Missile **missileArr;
 	double invulnerability;
 	int score;
 	double life;
-	int capacity;
+	int shotCapacity;
 	int nrOfShots;
+	int missilesCapacity;
 	int shotCD;
 public:
 	Player();
@@ -31,6 +35,8 @@ public:
 	void update(Time deltaTime);
 	void update(Sprite spriteShotArr[], int &shots, Time deltaTime);
 	void shoot();
+	void checkDamage(Sprite enemyArr[], int nrOfEnemies);
+	void shootMissile(Enemy *target);
 };
 #endif // !PLAYER_H
 
