@@ -120,8 +120,8 @@ void EntityHandler::spawnEnemies(){
 	if (a % 5 == 0) {
 		if (this->spawnedThisCycle == false) {
 			cout << "spawned new enemies" << endl;
-			this->spawnBasicEnemy(Vector2f(300,200));
-			this->spawnEnemy2(Vector2f(200, 20));
+			//this->spawnBasicEnemy(Vector2f(300,200));
+			this->spawnEnemy2(Vector2f(500, 200));
 			this->spawnedThisCycle = true;
 		}
 		
@@ -140,8 +140,8 @@ void EntityHandler::deactivateEnemy(Enemy2 *e){
 	e->setSpritePosition(Vector2f(-200, -200));
 }
 
-Enemy& EntityHandler::closestEnemy(Player p){
-	Enemy& closest = *this->basicEnemyArr[0];
+Enemy* EntityHandler::closestEnemy(Player p){
+	Enemy* closest = this->basicEnemyArr[0];
 	double closestDis = 999, deltaDis;
 	int playerX = p.getSprite().getPosition().x;
 	int playerY = p.getSprite().getPosition().y;
@@ -149,15 +149,16 @@ Enemy& EntityHandler::closestEnemy(Player p){
 		if (this->basicEnemyArr[i]->getActive() == 1) {
 			deltaDis = pow((pow((playerX - this->basicEnemyArr[i]->getSprite().getPosition().x),2) +	pow((playerY - this->basicEnemyArr[i]->getSprite().getPosition().y), 2)), .5);
 			if (deltaDis < closestDis) {
-				closest = *this->basicEnemyArr[i];
+				closest = this->basicEnemyArr[i];
 			}
 		}
 		if (this->enemy2Arr[i]->getActive() == 1) {
 			deltaDis = pow((pow((playerX - this->enemy2Arr[i]->getSprite().getPosition().x), 2) + pow((playerY - this->enemy2Arr[i]->getSprite().getPosition().y), 2)), .5);
 			if (deltaDis < closestDis) {
-				closest = *this->enemy2Arr[i];
+				closest = this->enemy2Arr[i];
 			}
 		}
 	}
 	return closest;
+
 }

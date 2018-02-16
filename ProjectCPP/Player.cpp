@@ -2,8 +2,7 @@
 #include <iostream>
 Player::Player() {
 	this->shotCapacity = 50;
-	this->nrOfShots = 0;
-	this->shotArr = new Shot*[this->shotCapacity];
+	this->shotArr = new BasicShot*[this->shotCapacity];
 	for (int i = 0; i < this->shotCapacity; i++) {
 		this->shotArr[i] = new BasicShot(Vector2f(-100,-100));
 	}
@@ -12,6 +11,8 @@ Player::Player() {
 	this->missileArr = new Missile*[this->missilesCapacity];
 	for (int i = 0; i < this->missilesCapacity; i++) {
 		this->missileArr[i] = new Missile();
+		this->missileArr[i]->setActive(0);
+		this->missileArr[i]->setSpritePosition(Vector2f(100, 100));
 	}
 
 	this->setTexture("player-plane-sprite-sheet-2.png");
@@ -22,6 +23,7 @@ Player::Player() {
 	this->life = 3;
 	this->invulnerability = 0;
 	this->shotCD = 0;
+	this->missileCD = 0;
 
 }
 
@@ -35,6 +37,26 @@ Player::~Player() {
 		delete this->missileArr[i];
 	}
 	delete[] this->missileArr;
+}
+
+Player::Player(const Player & p):Entity(p){
+	this->invulnerability = p.invulnerability;
+	this->life = p.life;
+	this->score = p.score;
+	this->shotCD = p.shotCD;
+	this->missileCD = p.missileCD;
+
+	this->shotCapacity = p.shotCapacity;
+	this->shotArr = new BasicShot*[this->shotCapacity];
+	for (int i = 0; i < this->shotCapacity; i++) {
+		this->shotArr[i] = new BasicShot(*(p.shotArr[i]));
+	}
+
+	this->missilesCapacity = p.missilesCapacity;
+	this->missileArr = new Missile*[this->missilesCapacity];
+	for (int i = 0; i < this->missilesCapacity; i++) {
+		this->missileArr[i] = new Missile(*(p.missileArr[i]));
+	}
 }
 
 
@@ -54,12 +76,16 @@ void Player::setScore(int s) {
 	this->score = s;
 }
 
-void Player::setShotCD(int CD){
+void Player::setShotCD(double CD){
 	this->shotCD = CD;
 }
 
-int Player::getShotCD(){
+double Player::getShotCD(){
 	return this->shotCD;
+}
+
+double Player::getMissileCD(){
+	return this->missileCD;
 }
 
 
@@ -100,8 +126,14 @@ void Player::update(Time deltaTime)
 }
 
 void Player::update(Sprite spriteShotArr[], int &shots, Time deltaTime) {
+	if (this->invulnerability > 0) {
+		this->invulnerability -= deltaTime.asMilliseconds();
+	}
 	if (this->shotCD > 0) {
 		this->shotCD -= deltaTime.asMilliseconds();
+	}
+	if (this->missileCD > 0) {
+		this->missileCD -= deltaTime.asMicroseconds();
 	}
 	shots = 0;
 	for (int i = 0; i < this->shotCapacity; i++) {
@@ -114,9 +146,17 @@ void Player::update(Sprite spriteShotArr[], int &shots, Time deltaTime) {
 			spriteShotArr[shots++] = (this->shotArr[i]->getSprite());
 		}
 	}
-	if (this->invulnerability > 0) {
-		this->invulnerability -= deltaTime.asMilliseconds();
+	for (int i = 0; i < this->missilesCapacity; i++) {
+		if (this->missileArr[i]->getActive() == 1) {
+			this->missileArr[i]->update(deltaTime);
+			if (this->missileArr[i]->getLifeSpan() <= 0) {
+				this->missileArr[i]->setSpritePosition(Vector2f(-100, -100));
+				this->missileArr[i]->setActive(0);
+			}
+			spriteShotArr[shots++] = (this->missileArr[i]->getSprite());
+		}
 	}
+	
 }
 
 void Player::shoot(){
@@ -143,17 +183,23 @@ void Player::checkDamage(Sprite enemyArr[], int nrOfEnemies){
 	}
 }
 
-void Player::shootMissile(Enemy * target){
-	bool shoot = false;
-	for (int i = 0; i < this->shotCapacity && shoot == false; i++) {
-		if (this->missileArr[i]->getActive() == 0) {
-			this->missileArr[i]->setActive(1);
-			this->missileArr[i]->setReDirectCD(.2);
-			this->missileArr[i]->setTarget(target);
-			this->missileArr[i]->setDirection(0);
-			this->missileArr[i]->setSpeed(0);
-			this->missileArr[i]->setSpritePosition(this->getSprite().getPosition());
-			shoot = true;
+void Player::shootMissile(Enemy *target){
+	if (this->missileCD <= 0) {
+		this->missileCD = 500000;
+		bool shoot = false;
+		for (int i = 0; i < this->missilesCapacity && shoot == false; i++) {
+			if (this->missileArr[i]->getActive() == 0) {
+				cout << "missile " << i << "was set to active" << endl;
+				this->missileArr[i]->setActive(1);
+				this->missileArr[i]->setReDirectCD(.2);
+				this->missileArr[i]->setTarget(target);
+				cout << "missile target locatin is " << target->getSprite().getPosition().x << "," << target->getSprite().getPosition().y << endl;
+				this->missileArr[i]->setDirection(0);
+				this->missileArr[i]->setSpeed(0);
+				this->missileArr[i]->setLifeSpan(4000);
+				this->missileArr[i]->setSpritePosition(this->getSprite().getPosition());
+				shoot = true;
+			}
 		}
 	}
 }

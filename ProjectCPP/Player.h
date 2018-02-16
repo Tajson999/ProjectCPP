@@ -9,7 +9,7 @@ using namespace sf;
 using namespace std;
 class Player :public Entity{
 private:
-	Shot **shotArr;
+	BasicShot **shotArr;
 	Missile **missileArr;
 	double invulnerability;
 	int score;
@@ -17,16 +17,19 @@ private:
 	int shotCapacity;
 	int nrOfShots;
 	int missilesCapacity;
-	int shotCD;
+	double shotCD;
+	double missileCD;
 public:
 	Player();
 	~Player();
+	Player(const Player &p);
 	double getLife()const;
 	void setLife(double l);
 	int getScore()const;
 	void setScore(int s);
-	void setShotCD(int CD);
-	int getShotCD();
+	void setShotCD(double CD);
+	double getShotCD();
+	double getMissileCD();
 	void takeDamage(double damage);
 	void moveUp(Time deltaTime);
 	void moveDown(Time deltaTime);
@@ -36,7 +39,7 @@ public:
 	void update(Sprite spriteShotArr[], int &shots, Time deltaTime);
 	void shoot();
 	void checkDamage(Sprite enemyArr[], int nrOfEnemies);
-	void shootMissile(Enemy *target);
+	void shootMissile(Enemy *arget);
 };
 #endif // !PLAYER_H
 

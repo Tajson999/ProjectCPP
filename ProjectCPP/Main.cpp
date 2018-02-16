@@ -18,7 +18,7 @@ int main() {
 
 	Player p1 = Player();
 	EntityHandler eH = EntityHandler();
-	eH.spawnBasicEnemy(Vector2f(100,100));
+	eH.spawnEnemy2(Vector2f(100,100));
 
 	Sprite *shotArr = new Sprite[50];
 	int shots = 0;
@@ -56,13 +56,14 @@ int main() {
 			p1.setSpriteRect(IntRect(0, 0, 50, 63));
 		}
 		if (Keyboard::isKeyPressed(Keyboard::C)) {
-			p1.shootMissile(&eH.closestEnemy(p1));
+			if (p1.getMissileCD() <= 0) {
+				p1.shootMissile(eH.closestEnemy(p1));
+			}
 		}
 		eH.spawnEnemies();
 		p1.update(shotArr,shots, deltaTime);
 		eH.updateEntites(enemyArr, enemies, shotArr, shots,window.getSize(), deltaTime);
 		p1.checkDamage(enemyArr, enemies);
-
 		window.clear();
 
 		for (int i = 0; i < shots; i++) {
