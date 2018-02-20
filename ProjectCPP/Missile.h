@@ -21,8 +21,7 @@ public:
 	void setTarget(Enemy *target);
 	void setReDirectCD(double CD);
 
-	void update(Time deltaTime);
-
+	void update(sf::Time deltaTime);
 };
 #endif // !MISSILE_H
 

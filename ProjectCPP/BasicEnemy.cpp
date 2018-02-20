@@ -2,10 +2,10 @@
 #include <iostream>
 BasicEnemy::BasicEnemy() :Enemy(){
 	int life = 1;
-	this->setTexture("enemy1.png");
-	this->rotateSprite(180);
+	this->setTexture("spriteSheet.png");
+	this->setSpriteRect(sf::IntRect(4,4,31,31));
 	this->setSpritePosition(sf::Vector2f(200, 0));
-	this->setSpriteScale(sf::Vector2f(0.6, 0.6));
+	this->setSpriteScale(sf::Vector2f(2, 2));
 	this->a = this->getSprite().getPosition().x;
 	this->b = this->getSprite().getPosition().y;
 	this->radiant = 0;
@@ -29,7 +29,13 @@ void BasicEnemy::setRadiant(double r){
 }
 
 
-void BasicEnemy::update(Time deltaTime) {
+void BasicEnemy::update(sf::Time deltaTime) {
+	if (this->getSprite().getTextureRect().left == 4) {
+		this->moveSpriteRect(66, 0);
+	}
+	else {
+		this->moveSpriteRect(-66, 0);
+	}
 	this->radiant += (.4 * deltaTime.asMilliseconds() * 3.1415) / 180;
 	int radius = 100;
 	//generate absolute cordiantes

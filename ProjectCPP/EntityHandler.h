@@ -5,9 +5,10 @@
 #include "enemy2.h"
 #include "Player.h"
 #include <iostream>
+#include <ctime>
 class EntityHandler {
 private:
-	Clock time;
+	sf::Clock time;
 	int capacity;
 	int nrOfEntites;
 	BasicEnemy* *basicEnemyArr;
@@ -24,10 +25,11 @@ public:
 	void setNrOfEntites(int e);
 	int getNrOfEntities();
 
-	void spawnBasicEnemy(sf::Vector2f v);
-	void spawnEnemy2(sf::Vector2f v);
+	void spawnBasicEnemy(sf::Vector2f v, int life, int damage);
+	void spawnEnemy2(sf::Vector2f v, int life, int damage);
 	//void removeEntity(int i);
-	void updateEntites(Sprite enemyArr[], int &enemyArrSize, Sprite shotArr[], int shotArrSize, Vector2u viewport,Time deltaTime);
+	void updateEntites(sf::FloatRect shotRectArr[], sf::Vector2u viewport,sf::Time deltaTime);
+	void drawEnemies(sf::RenderTarget & target);
 	void spawnEnemies();
 
 	void deactivateEnemy(BasicEnemy *e);
