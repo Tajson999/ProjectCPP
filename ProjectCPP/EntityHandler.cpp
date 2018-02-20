@@ -58,13 +58,14 @@ int EntityHandler::getNrOfEntities() {
 }
 
 
-void EntityHandler::spawnBasicEnemy(sf::Vector2f v) {
+void EntityHandler::spawnBasicEnemy(sf::Vector2f v, int life, int damage) {
 	bool spawned = false;
 	for (int i = 0; i < this->capacity && spawned == false; i++) {
 		if (this->basicEnemyArr[i]->getActive() == 0) {
 			this->basicEnemyArr[i]->setSpritePosition(v);
 			this->basicEnemyArr[i]->setActive(1);
-			this->basicEnemyArr[i]->setLife(1);
+			this->basicEnemyArr[i]->setLife(life);
+			this->basicEnemyArr[i]->setDamage(damage);
 			this->basicEnemyArr[i]->setA(this->basicEnemyArr[i]->getSprite().getPosition().x);
 			this->basicEnemyArr[i]->setB(this->basicEnemyArr[i]->getSprite().getPosition().y);
 			this->basicEnemyArr[i]->setRadiant(0);
@@ -73,44 +74,49 @@ void EntityHandler::spawnBasicEnemy(sf::Vector2f v) {
 	}
 }
 
-void EntityHandler::spawnEnemy2(sf::Vector2f v){
+void EntityHandler::spawnEnemy2(sf::Vector2f v, int life, int damage){
 	bool spawned = false;
 	for (int i = 0; i < this->capacity && spawned == false; i++) {
 		if (this->enemy2Arr[i]->getActive() == 0) {
 			this->enemy2Arr[i]->setSpritePosition(v);
 			this->enemy2Arr[i]->setActive(1);
-			this->enemy2Arr[i]->setLife(1);
+			this->enemy2Arr[i]->setLife(life);
+			this->enemy2Arr[i]->setDamage(damage);
 			spawned = true;
 		}
 	}
 }
 
-void EntityHandler::updateEntites(Sprite enemyArr[], int &enemyArrSize, Sprite shotArr[], int shotArrSize, Vector2u viewport, Time deltaTime) {
-	enemyArrSize = 0;
-	
+void EntityHandler::updateEntites(sf::FloatRect shotRectArr[], sf::Vector2u viewport, sf::Time deltaTime) {	
 	//updating enemy
-	for (int i = 0; i < this->capacity; i++) {
+		for (int i = 0; i < this->capacity; i++) {
 		if (this->basicEnemyArr[i]->getActive() == 1) {
 			this->basicEnemyArr[i]->update(deltaTime);
-			if (this->basicEnemyArr[i]->isDestroyed(shotArr, shotArrSize, viewport)) {
+			if (this->basicEnemyArr[i]->isDestroyed(shotRectArr, 53, viewport)) {
 				this->deactivateEnemy(this->basicEnemyArr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}
 		}
 		if (this->enemy2Arr[i]->getActive() == 1) {
 			this->enemy2Arr[i]->update(deltaTime);
-			if (this->enemy2Arr[i]->isDestroyed(shotArr, shotArrSize, viewport)) {
+			if (this->enemy2Arr[i]->isDestroyed(shotRectArr, 53, viewport)) {
 				this->deactivateEnemy(this->enemy2Arr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}
 
 		}
-		enemyArr[enemyArrSize] = this->basicEnemyArr[i]->getSprite();
-		enemyArrSize++;
-		enemyArr[enemyArrSize] = this->enemy2Arr[i]->getSprite();
-		enemyArrSize++;
-		
 
+	}
+}
+
+void EntityHandler::drawEnemies(sf::RenderTarget & target) {
+	for (int i = 0; i < this->capacity; i++) {
+		if (this->basicEnemyArr[i]->getActive() == 1) {
+			this->basicEnemyArr[i]->draw(target, sf::RenderStates::Default);
+		}
+		if (this->enemy2Arr[i]->getActive() == 1) {
+			this->enemy2Arr[i]->draw(target, sf::RenderStates::Default);
+		}
 	}
 }
 
@@ -119,9 +125,19 @@ void EntityHandler::spawnEnemies(){
 	int a = this->time.getElapsedTime().asSeconds();
 	if (a % 5 == 0) {
 		if (this->spawnedThisCycle == false) {
-			cout << "spawned new enemies" << endl;
-			//this->spawnBasicEnemy(sf::Vector2f(300,200));
-			this->spawnEnemy2(sf::Vector2f(500, 200));
+			int random = rand() % 2;
+			switch (random) {
+			case 0:
+				this->spawnEnemy2(sf::Vector2f(10, 1), (a / 60) + 1, (a / 120) + 1);
+				this->spawnEnemy2(sf::Vector2f(47, 1), (a / 60) + 1, (a / 120) + 1);
+				this->spawnEnemy2(sf::Vector2f(97, 1), (a / 60) + 1, (a / 120) + 1);
+				break;
+			default:
+				break;
+			}
+			cout << "spawned new enemies with life " << (a / 60) + 1 << " and damage " << (a / 120) + 1 << endl;
+			this->spawnBasicEnemy(sf::Vector2f(300,200), (a/60) + 1, (a/120) + 1);
+			this->spawnEnemy2(sf::Vector2f(400, 100), (a/60) + 1, (a/120) + 1);
 			this->spawnedThisCycle = true;
 		}
 		

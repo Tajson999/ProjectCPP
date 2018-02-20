@@ -12,7 +12,7 @@ public:
 	BasicShot(double life = 800);
 	BasicShot(sf::Vector2f v, double life = 800);
 	~BasicShot();
-	void update(Time deltaTime);
+	void update(sf::Time deltaTime);
 };
 #endif // !SHOT_H
 
