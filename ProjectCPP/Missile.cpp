@@ -44,7 +44,7 @@ void Missile::setReDirectCD(double CD){
 	this->reDirectCD = CD;
 }
 
-void Missile::update(sf::Time deltaTime){
+void Missile::update(Time deltaTime){
 	if (this->getActive() == 1) {
 		//cout << "missile target cords is" << this->target->getSprite().getPosition().x << "," << this->target->getSprite().getPosition().y << endl;
 		if (this->speed < 1) {

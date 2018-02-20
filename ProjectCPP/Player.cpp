@@ -15,17 +15,16 @@ Player::Player() {
 		this->missileArr[i]->setSpritePosition(sf::Vector2f(100, 100));
 	}
 
-	this->setTexture("spriteSheet.png");
-	this->setSpriteRect(sf::IntRect(275, 414, 50, 40));
+	this->setTexture("player-plane-sprite-sheet-2.png");
+	this->setSpriteRect(IntRect(0, 0, 50, 63));
 	this->setTextureSmooth();
-	this->setSpriteScale(sf::Vector2f(1.5f, 1.5f));
-	this->setSpriteOrigin(sf::Vector2f(25, 0));
+	this->setSpriteOrigin(sf::Vector2f(20, 0));
 	this->score = 0;
 	this->life = 3;
 	this->invulnerability = 0;
 	this->shotCD = 0;
 	this->missileCD = 0;
-	cout << "Create player" << endl;
+
 }
 
 Player::~Player() {
@@ -89,16 +88,6 @@ double Player::getMissileCD(){
 	return this->missileCD;
 }
 
-void Player::getShotArr(sf::FloatRect shotRectArr[]) {
-	for (int i = 0; i < this->shotCapacity; i++) {
-		shotRectArr[i] = this->shotArr[i]->getSprite().getGlobalBounds();
-
-	}
-	for (int i = 0; i < this->missilesCapacity; i++) {
-		shotRectArr[i + 50] = this->missileArr[i]->getSprite().getGlobalBounds();
-	}
-}
-
 
 void Player::takeDamage(double damage) {
 	if (this->invulnerability <= 0) {
@@ -112,46 +101,31 @@ void Player::takeDamage(double damage) {
 	
 }
 
-void Player::moveUp(sf::Time deltaTime) {
+void Player::moveUp(Time deltaTime) {
 	this->move(sf::Vector2f(0, -.5 * deltaTime.asMilliseconds()));
+	this->setSpriteRect(IntRect(0, 0, 50, 63));
 }
 
-void Player::moveDown(sf::Time deltaTime) {
+void Player::moveDown(Time deltaTime) {
 	this->move(sf::Vector2f(0, .5 * deltaTime.asMilliseconds()));
+	this->setSpriteRect(IntRect(0, 0, 50, 63));
 }
 
-void Player::moveRight(sf::Time deltaTime) {
+void Player::moveRight(Time deltaTime) {
 	this->move(sf::Vector2f(.5 * deltaTime.asMilliseconds(), 0));
+	this->setSpriteRect(IntRect(551, 0, 50, 63));
 }
 
-void Player::moveLeft(sf::Time deltaTime) {
+void Player::moveLeft(Time deltaTime) {
 	this->move(sf::Vector2f(-.5 * deltaTime.asMilliseconds(), 0));
+	this->setSpriteRect(IntRect(251, 0, 50, 63));
 }
 
-void Player::update( sf::Time deltaTime) {
+void Player::update(Time deltaTime)
+{
+}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
-		cout << "Player cords:" << this->getSprite().getPosition().x << "," << this->getSprite().getPosition().y << endl;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		this->moveRight(deltaTime);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		this->moveLeft(deltaTime);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		this->moveUp(deltaTime);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		this->moveDown(deltaTime);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		this->shoot();
-		//out << this->getShotCD() << endl;
-	}
-	
-
-
+void Player::update(Sprite spriteShotArr[], int &shots, Time deltaTime) {
 	if (this->invulnerability > 0) {
 		this->invulnerability -= deltaTime.asMilliseconds();
 	}
@@ -161,6 +135,7 @@ void Player::update( sf::Time deltaTime) {
 	if (this->missileCD > 0) {
 		this->missileCD -= deltaTime.asMicroseconds();
 	}
+	shots = 0;
 	for (int i = 0; i < this->shotCapacity; i++) {
 		if (this->shotArr[i]->getActive() == 1) {
 			this->shotArr[i]->update(deltaTime);
@@ -168,6 +143,7 @@ void Player::update( sf::Time deltaTime) {
 				this->shotArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
 				this->shotArr[i]->setActive(0);
 			}
+			spriteShotArr[shots++] = (this->shotArr[i]->getSprite());
 		}
 	}
 	for (int i = 0; i < this->missilesCapacity; i++) {
@@ -177,14 +153,10 @@ void Player::update( sf::Time deltaTime) {
 				this->missileArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
 				this->missileArr[i]->setActive(0);
 			}
+			spriteShotArr[shots++] = (this->missileArr[i]->getSprite());
 		}
 	}
-	if (this->getSprite().getTextureRect().left == 407) {
-		this->moveSpriteRect(-132, 0);
-	}
-	else {
-		this->moveSpriteRect(66, 0);
-	}
+	
 }
 
 void Player::shoot(){
@@ -202,9 +174,7 @@ void Player::shoot(){
 	}
 }
 
-void Player::checkDamage(sf::Sprite enemyArr[], int nrOfEnemies){
-
-
+void Player::checkDamage(Sprite enemyArr[], int nrOfEnemies){
 	for (int i = 0; i < nrOfEnemies; i++) {
 		if (this->getSprite().getGlobalBounds().intersects(enemyArr[i].getGlobalBounds())) {
 			this->takeDamage(1);
@@ -233,18 +203,3 @@ void Player::shootMissile(Enemy *target){
 		}
 	}
 }
-
-void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
-	Entity::draw(target, states);
-	for (int i = 0; i < this->shotCapacity; i++) {
-		if (this->shotArr[i]->getActive() == 1) {
-			target.draw(this->shotArr[i]->getSprite(), states);
-		}
-	}
-	for (int i = 0; i < this->missilesCapacity; i++) {
-		if (this->missileArr[i]->getActive() == 1) {
-			target.draw(this->missileArr[i]->getSprite(), states);
-		}
-	}
-}
-

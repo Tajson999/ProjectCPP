@@ -30,18 +30,16 @@ public:
 	void setShotCD(double CD);
 	double getShotCD();
 	double getMissileCD();
-	void getShotArr(sf::FloatRect shotRectArr[]);
-
 	void takeDamage(double damage);
-	void moveUp(sf::Time deltaTime);
-	void moveDown(sf::Time deltaTime);
-	void moveRight(sf::Time deltaTime);
-	void moveLeft(sf::Time deltaTime);
-	void update(sf::Time deltaTime);
+	void moveUp(Time deltaTime);
+	void moveDown(Time deltaTime);
+	void moveRight(Time deltaTime);
+	void moveLeft(Time deltaTime);
+	void update(Time deltaTime);
+	void update(Sprite spriteShotArr[], int &shots, Time deltaTime);
 	void shoot();
-	void checkDamage(sf::Sprite enemyArr[], int nrOfEnemies);
+	void checkDamage(Sprite enemyArr[], int nrOfEnemies);
 	void shootMissile(Enemy *arget);
-	void draw(sf::RenderTarget& target, sf::RenderStates states)const;
 };
 #endif // !PLAYER_H
 

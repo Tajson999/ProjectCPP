@@ -14,7 +14,7 @@ public:
 	void setA(double a);
 	void setB(double b);
 	void setRadiant(double r);
-	void update(sf::Time deltaTime);
+	void update(Time deltaTime);
 
 
 };

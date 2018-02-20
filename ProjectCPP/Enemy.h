@@ -15,11 +15,10 @@ public:
 	int getActive();
 	void setLife(double a);
 	double getLife();
-	void setDamage(double damage);
 	double getDamage();
 
-	virtual void update(sf::Time deltaTime) = 0;
-	bool isDestroyed(sf::FloatRect shotRectArr[], int shotArrSize, sf::Vector2u viewport);
+	virtual void update(Time deltaTime) = 0;
+	bool isDestroyed(Sprite shotArr[], int shotArrSize, Vector2u viewport);
 
 
 };

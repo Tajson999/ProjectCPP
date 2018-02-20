@@ -11,7 +11,7 @@ public:
 	Enemy2();
 	~Enemy2();
 
-	void update(sf::Time deltaTime);
+	void update(Time deltaTime);
 
 };
 
