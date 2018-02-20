@@ -22,13 +22,13 @@ EntityHandler::EntityHandler() {
 	this->basicEnemyArr = new BasicEnemy*[this->capacity];
 	for (int i = 0; i < this->capacity; i++) {
 		this->basicEnemyArr[i] = new BasicEnemy();
-		this->basicEnemyArr[i]->setSpritePosition(Vector2f(-200, -200));
+		this->basicEnemyArr[i]->setSpritePosition(sf::Vector2f(-200, -200));
 	}
 
 	this->enemy2Arr = new Enemy2*[this->capacity];
 	for (int i = 0; i < this->capacity; i++) {
 		this->enemy2Arr[i] = new Enemy2();
-		this->enemy2Arr[i]->setSpritePosition(Vector2f(-200, -200));
+		this->enemy2Arr[i]->setSpritePosition(sf::Vector2f(-200, -200));
 	}
 }
 
@@ -58,7 +58,7 @@ int EntityHandler::getNrOfEntities() {
 }
 
 
-void EntityHandler::spawnBasicEnemy(Vector2f v) {
+void EntityHandler::spawnBasicEnemy(sf::Vector2f v) {
 	bool spawned = false;
 	for (int i = 0; i < this->capacity && spawned == false; i++) {
 		if (this->basicEnemyArr[i]->getActive() == 0) {
@@ -73,7 +73,7 @@ void EntityHandler::spawnBasicEnemy(Vector2f v) {
 	}
 }
 
-void EntityHandler::spawnEnemy2(Vector2f v){
+void EntityHandler::spawnEnemy2(sf::Vector2f v){
 	bool spawned = false;
 	for (int i = 0; i < this->capacity && spawned == false; i++) {
 		if (this->enemy2Arr[i]->getActive() == 0) {
@@ -120,8 +120,8 @@ void EntityHandler::spawnEnemies(){
 	if (a % 5 == 0) {
 		if (this->spawnedThisCycle == false) {
 			cout << "spawned new enemies" << endl;
-			//this->spawnBasicEnemy(Vector2f(300,200));
-			this->spawnEnemy2(Vector2f(500, 200));
+			//this->spawnBasicEnemy(sf::Vector2f(300,200));
+			this->spawnEnemy2(sf::Vector2f(500, 200));
 			this->spawnedThisCycle = true;
 		}
 		
@@ -132,12 +132,12 @@ void EntityHandler::spawnEnemies(){
 
 void EntityHandler::deactivateEnemy(BasicEnemy *e){
 	e->setActive(0);
-	e->setSpritePosition(Vector2f(-200, -200));
+	e->setSpritePosition(sf::Vector2f(-200, -200));
 }
 
 void EntityHandler::deactivateEnemy(Enemy2 *e){
 	e->setActive(0);
-	e->setSpritePosition(Vector2f(-200, -200));
+	e->setSpritePosition(sf::Vector2f(-200, -200));
 }
 
 Enemy* EntityHandler::closestEnemy(Player p){

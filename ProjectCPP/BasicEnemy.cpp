@@ -4,8 +4,8 @@ BasicEnemy::BasicEnemy() :Enemy(){
 	int life = 1;
 	this->setTexture("enemy1.png");
 	this->rotateSprite(180);
-	this->setSpritePosition(Vector2f(200, 0));
-	this->setSpriteScale(Vector2f(0.6, 0.6));
+	this->setSpritePosition(sf::Vector2f(200, 0));
+	this->setSpriteScale(sf::Vector2f(0.6, 0.6));
 	this->a = this->getSprite().getPosition().x;
 	this->b = this->getSprite().getPosition().y;
 	this->radiant = 0;
@@ -38,6 +38,6 @@ void BasicEnemy::update(Time deltaTime) {
 	newX -= this->getSprite().getPosition().x - this->a;
 	newY -= this->getSprite().getPosition().y - this->b;
 	this->b += .2;
-	this->move(Vector2f(newX, newY));
+	this->move(sf::Vector2f(newX, newY));
 	
 }

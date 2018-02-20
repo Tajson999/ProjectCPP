@@ -6,7 +6,7 @@ Missile::Missile(Enemy * target, double lifespan): Shot(lifespan){
 	this->speed = 0;
 	this->direction = 0;
 	this->setTexture("missile.png");
-	this->setSpriteScale(Vector2f(0.3f, 0.3f));
+	this->setSpriteScale(sf::Vector2f(0.3f, 0.3f));
 	this->reDirectCD = 0;
 	cout << "create a missile with active: " << this->getActive() << endl;
 }
@@ -15,7 +15,7 @@ Missile::Missile(): Shot(){
 	this->speed = 0;
 	this->direction = 0;
 	this->setTexture("missile.png");
-	this->setSpriteScale(Vector2f(0.3f, 0.3f));
+	this->setSpriteScale(sf::Vector2f(0.3f, 0.3f));
 	this->reDirectCD = 0;
 	this->target = nullptr;
 	cout << "create a missile with active: "<< this->getActive() << endl;
@@ -57,20 +57,20 @@ void Missile::update(Time deltaTime){
 				double absAngle = atan(deltaY / deltaX);
 				this->direction = absAngle;
 				if (this->getSprite().getPosition().x < this->target->getSprite().getPosition().x) {
-					this->move(Vector2f(cos(this->direction) * speed * deltaTime.asMilliseconds(),  -speed *.5* deltaTime.asMilliseconds() + .1));
+					this->move(sf::Vector2f(cos(this->direction) * speed * deltaTime.asMilliseconds(),  -speed *.5* deltaTime.asMilliseconds() + .1));
 				}
 				else {
-					this->move(Vector2f(-cos(this->direction)  * speed * deltaTime.asMilliseconds(), -speed *.5* deltaTime.asMilliseconds() + .1));
+					this->move(sf::Vector2f(-cos(this->direction)  * speed * deltaTime.asMilliseconds(), -speed *.5* deltaTime.asMilliseconds() + .1));
 				}
 				this->reDirectCD = .2;
 			}
 			else {
-				this->move(Vector2f(0, -speed *.5* deltaTime.asMilliseconds()));
+				this->move(sf::Vector2f(0, -speed *.5* deltaTime.asMilliseconds()));
 				this->reDirectCD -= deltaTime.asMilliseconds();
 			}
 		}
 		else {
-			this->move(Vector2f(0, -speed *.5* deltaTime.asMilliseconds()));
+			this->move(sf::Vector2f(0, -speed *.5* deltaTime.asMilliseconds()));
 		}
 		
 		this->setLifeSpan(this->getLifeSpan() - deltaTime.asMilliseconds());

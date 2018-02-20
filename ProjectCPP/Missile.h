@@ -3,7 +3,7 @@
 #include "Shot.h"
 #include "Enemy.h"
 using namespace std;
-using namespace sf;
+ 
 class Missile: public Shot{
 private:
 	double reDirectCD;

@@ -7,7 +7,7 @@
 #include "EntityHandler.h"
 #include <iostream>
 using namespace std;
-using namespace sf;
+ 
 int main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	View viewport(FloatRect(0,0,800,600));
@@ -18,7 +18,7 @@ int main() {
 
 	Player p1 = Player();
 	EntityHandler eH = EntityHandler();
-	eH.spawnEnemy2(Vector2f(100,100));
+	eH.spawnEnemy2(sf::Vector2f(100,100));
 
 	Sprite *shotArr = new Sprite[50];
 	int shots = 0;

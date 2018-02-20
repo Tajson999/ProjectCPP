@@ -25,7 +25,7 @@ void Entity::setTextureSmooth() {
 	this->texture.setSmooth(true);
 }
 
-void Entity::setSpriteOrigin(Vector2f v) {
+void Entity::setSpriteOrigin(sf::Vector2f v) {
 	this->sprite.setOrigin(v);
 }
 
@@ -42,15 +42,15 @@ void Entity::setSpriteColor(int a, int b, int c)
 	this->sprite.setColor(Color(a,b,c));
 }
 
-void Entity::setSpriteScale(Vector2f v){
+void Entity::setSpriteScale(sf::Vector2f v){
 	this->sprite.setScale(v);
 }
 
-void Entity::move(Vector2f v) {
+void Entity::move(sf::Vector2f v) {
 	this->sprite.move(v);
 }
 
-void Entity::setSpritePosition(Vector2f v) {
+void Entity::setSpritePosition(sf::Vector2f v) {
 	this->sprite.setPosition(v);
 }
 

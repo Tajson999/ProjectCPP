@@ -5,9 +5,9 @@ Enemy2::Enemy2() :Enemy(2.0){
 	this->setTexture("enemy1.png");
 	this->rotateSprite(180);
 	this->setSpriteColor(0, 255, 0);
-	this->setSpriteOrigin(Vector2f(this->getSprite().getGlobalBounds().width/2, -this->getSprite().getGlobalBounds().height));
-	this->setSpriteScale(Vector2f(0.6, 0.6));
-	this->setSpritePosition(Vector2f(100, 0));
+	this->setSpriteOrigin(sf::Vector2f(this->getSprite().getGlobalBounds().width/2, -this->getSprite().getGlobalBounds().height));
+	this->setSpriteScale(sf::Vector2f(0.6, 0.6));
+	this->setSpritePosition(sf::Vector2f(100, 0));
 }
 
 Enemy2::~Enemy2()
@@ -16,5 +16,5 @@ Enemy2::~Enemy2()
 
 void Enemy2::update(Time deltaTime)
 {
-	this->move(Vector2f(.1*deltaTime.asMilliseconds(), .1*deltaTime.asMilliseconds()));
+	this->move(sf::Vector2f(.1*deltaTime.asMilliseconds(), .1*deltaTime.asMilliseconds()));
 }

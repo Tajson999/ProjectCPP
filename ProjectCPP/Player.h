@@ -5,7 +5,7 @@
 #include "BasicShot.h"
 #include "Enemy.h"
 #include "Missile.h"
-using namespace sf;
+ 
 using namespace std;
 class Player :public Entity{
 private:

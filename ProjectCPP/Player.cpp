@@ -4,7 +4,7 @@ Player::Player() {
 	this->shotCapacity = 50;
 	this->shotArr = new BasicShot*[this->shotCapacity];
 	for (int i = 0; i < this->shotCapacity; i++) {
-		this->shotArr[i] = new BasicShot(Vector2f(-100,-100));
+		this->shotArr[i] = new BasicShot(sf::Vector2f(-100,-100));
 	}
 
 	this->missilesCapacity = 3;
@@ -12,13 +12,13 @@ Player::Player() {
 	for (int i = 0; i < this->missilesCapacity; i++) {
 		this->missileArr[i] = new Missile();
 		this->missileArr[i]->setActive(0);
-		this->missileArr[i]->setSpritePosition(Vector2f(100, 100));
+		this->missileArr[i]->setSpritePosition(sf::Vector2f(100, 100));
 	}
 
 	this->setTexture("player-plane-sprite-sheet-2.png");
 	this->setSpriteRect(IntRect(0, 0, 50, 63));
 	this->setTextureSmooth();
-	this->setSpriteOrigin(Vector2f(20, 0));
+	this->setSpriteOrigin(sf::Vector2f(20, 0));
 	this->score = 0;
 	this->life = 3;
 	this->invulnerability = 0;
@@ -102,22 +102,22 @@ void Player::takeDamage(double damage) {
 }
 
 void Player::moveUp(Time deltaTime) {
-	this->move(Vector2f(0, -.5 * deltaTime.asMilliseconds()));
+	this->move(sf::Vector2f(0, -.5 * deltaTime.asMilliseconds()));
 	this->setSpriteRect(IntRect(0, 0, 50, 63));
 }
 
 void Player::moveDown(Time deltaTime) {
-	this->move(Vector2f(0, .5 * deltaTime.asMilliseconds()));
+	this->move(sf::Vector2f(0, .5 * deltaTime.asMilliseconds()));
 	this->setSpriteRect(IntRect(0, 0, 50, 63));
 }
 
 void Player::moveRight(Time deltaTime) {
-	this->move(Vector2f(.5 * deltaTime.asMilliseconds(), 0));
+	this->move(sf::Vector2f(.5 * deltaTime.asMilliseconds(), 0));
 	this->setSpriteRect(IntRect(551, 0, 50, 63));
 }
 
 void Player::moveLeft(Time deltaTime) {
-	this->move(Vector2f(-.5 * deltaTime.asMilliseconds(), 0));
+	this->move(sf::Vector2f(-.5 * deltaTime.asMilliseconds(), 0));
 	this->setSpriteRect(IntRect(251, 0, 50, 63));
 }
 
@@ -140,7 +140,7 @@ void Player::update(Sprite spriteShotArr[], int &shots, Time deltaTime) {
 		if (this->shotArr[i]->getActive() == 1) {
 			this->shotArr[i]->update(deltaTime);
 			if (this->shotArr[i]->getLifeSpan() <= 0) {
-				this->shotArr[i]->setSpritePosition(Vector2f(-100, -100));
+				this->shotArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
 				this->shotArr[i]->setActive(0);
 			}
 			spriteShotArr[shots++] = (this->shotArr[i]->getSprite());
@@ -150,7 +150,7 @@ void Player::update(Sprite spriteShotArr[], int &shots, Time deltaTime) {
 		if (this->missileArr[i]->getActive() == 1) {
 			this->missileArr[i]->update(deltaTime);
 			if (this->missileArr[i]->getLifeSpan() <= 0) {
-				this->missileArr[i]->setSpritePosition(Vector2f(-100, -100));
+				this->missileArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
 				this->missileArr[i]->setActive(0);
 			}
 			spriteShotArr[shots++] = (this->missileArr[i]->getSprite());
@@ -164,7 +164,7 @@ void Player::shoot(){
 	if (this->shotCD <= 0) {
 		for (int i = 0; i < this->shotCapacity && shoot == false; i++) {
 			if (this->shotArr[i]->getActive() == 0) {
-				this->shotArr[i]->setSpritePosition(Vector2f(this->getSprite().getPosition().x, this->getSprite().getPosition().y));
+				this->shotArr[i]->setSpritePosition(sf::Vector2f(this->getSprite().getPosition().x, this->getSprite().getPosition().y));
 				this->shotArr[i]->setActive(1);
 				this->shotArr[i]->setLifeSpan(800);
 				shoot = true;
