@@ -12,7 +12,11 @@ void Game::update(sf::Time deltaTime, sf::Vector2u viewport) {
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
 		if (p1.getMissileCD() <= 0) {
-			p1.shootMissile(eH.closestEnemy(p1));
+			cout << "started missile shoot" << endl;
+			sf::Clock timer;
+			p1.setMissileCD(3);
+			p1.shootMissile(eH.closestEnemy(p1.getSprite().getPosition().x, p1.getSprite().getPosition().y));
+			cout << "missile shot took" <<timer.getElapsedTime().asSeconds() << endl;
 		}
 	}
 

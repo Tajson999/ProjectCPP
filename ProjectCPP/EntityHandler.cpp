@@ -187,20 +187,22 @@ void EntityHandler::deactivateEnemy(Enemy2 *e){
 	e->setSpritePosition(sf::Vector2f(-200, -200));
 }
 
-Enemy* EntityHandler::closestEnemy(Player p){
+Enemy* EntityHandler::closestEnemy(int x, int y){
 	Enemy* closest = this->basicEnemyArr[0];
-	double closestDis = 999, deltaDis;
-	int playerX = p.getSprite().getPosition().x;
-	int playerY = p.getSprite().getPosition().y;
+	double playerX = x;
+	double playerY = y;
+	double closestDis = (pow((playerX - this->basicEnemyArr[0]->getSprite().getPosition().x), 2) + pow((playerY - this->basicEnemyArr[0]->getSprite().getPosition().y), 2));
+	double deltaDis;
+
 	for (int i = 0; i < this->capacity; i++) {
 		if (this->basicEnemyArr[i]->getActive() == 1) {
-			deltaDis = pow((pow((playerX - this->basicEnemyArr[i]->getSprite().getPosition().x),2) +	pow((playerY - this->basicEnemyArr[i]->getSprite().getPosition().y), 2)), .5);
+			deltaDis = (pow((playerX - this->basicEnemyArr[i]->getSprite().getPosition().x),2) + pow((playerY - this->basicEnemyArr[i]->getSprite().getPosition().y), 2));
 			if (deltaDis < closestDis) {
 				closest = this->basicEnemyArr[i];
 			}
 		}
 		if (this->enemy2Arr[i]->getActive() == 1) {
-			deltaDis = pow((pow((playerX - this->enemy2Arr[i]->getSprite().getPosition().x), 2) + pow((playerY - this->enemy2Arr[i]->getSprite().getPosition().y), 2)), .5);
+			deltaDis = (pow((playerX - this->enemy2Arr[i]->getSprite().getPosition().x), 2) + pow((playerY - this->enemy2Arr[i]->getSprite().getPosition().y), 2));
 			if (deltaDis < closestDis) {
 				closest = this->enemy2Arr[i];
 			}

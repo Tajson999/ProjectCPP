@@ -30,6 +30,7 @@ public:
 	void setShotCD(double CD);
 	double getShotCD();
 	double getMissileCD();
+	void setMissileCD(double CD);
 	BasicShot*** getShotArr();
 	Missile*** getMissileArr();
 

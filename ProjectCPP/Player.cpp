@@ -12,7 +12,7 @@ Player::Player() {
 	for (int i = 0; i < this->missilesCapacity; i++) {
 		this->missileArr[i] = new Missile();
 		this->missileArr[i]->setActive(0);
-		this->missileArr[i]->setSpritePosition(sf::Vector2f(100, 100));
+		this->missileArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
 	}
 
 	this->setTexture("spriteSheet.png");
@@ -89,6 +89,10 @@ double Player::getMissileCD(){
 	return this->missileCD;
 }
 
+void Player::setMissileCD(double CD) {
+	this->missileCD = CD;
+}
+
 BasicShot*** Player::getShotArr() {
 	return &this->shotArr;
 }
@@ -106,7 +110,7 @@ void Player::takeDamage(double damage) {
 	if (this->life <= 0 ) {
 		cout << "You loose" << endl;
 	}
-	this->invulnerability = 1000;
+	this->invulnerability = 5;
 	
 }
 
@@ -145,19 +149,18 @@ void Player::update( sf::Time deltaTime) {
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		this->shoot();
-		//out << this->getShotCD() << endl;
 	}
 	
 
 
 	if (this->invulnerability > 0) {
-		this->invulnerability -= deltaTime.asMilliseconds();
+		this->invulnerability -= deltaTime.asSeconds();
 	}
 	if (this->shotCD > 0) {
-		this->shotCD -= deltaTime.asMilliseconds();
+		this->shotCD -= deltaTime.asSeconds();
 	}
 	if (this->missileCD > 0) {
-		this->missileCD -= deltaTime.asMicroseconds();
+		this->missileCD -= deltaTime.asSeconds();
 	}
 	for (int i = 0; i < this->shotCapacity; i++) {
 		if (this->shotArr[i]->getActive() == 1) {
@@ -194,7 +197,7 @@ void Player::shoot(){
 				this->shotArr[i]->setActive(1);
 				this->shotArr[i]->setLifeSpan(800);
 				shoot = true;
-				this->shotCD = 100;
+				this->shotCD = .25;
 			}
 		}
 	}
@@ -214,7 +217,7 @@ void Player::checkDamage(Enemy*** enemyArr, int nrOfEnemies){
 
 void Player::shootMissile(Enemy *target){
 	if (this->missileCD <= 0) {
-		this->missileCD = 500000;
+		this->missileCD = 3;
 		bool shoot = false;
 		for (int i = 0; i < this->missilesCapacity && shoot == false; i++) {
 			if (this->missileArr[i]->getActive() == 0) {

@@ -38,7 +38,7 @@ public:
 	void deactivateEnemy(BasicEnemy *e);
 	void deactivateEnemy(Enemy2 *e);
 
-	Enemy* closestEnemy(Player p);
+	Enemy* closestEnemy(int x, int y);
 
 };
 
