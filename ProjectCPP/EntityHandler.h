@@ -25,10 +25,13 @@ public:
 	void setNrOfEntites(int e);
 	int getNrOfEntities();
 
+	BasicEnemy*** getBasicEnemyArr();
+	Enemy2*** getEnemy2Arr();
+
 	void spawnBasicEnemy(sf::Vector2f v, int life, int damage);
 	void spawnEnemy2(sf::Vector2f v, int life, int damage, int direction);
 	//void removeEntity(int i);
-	void updateEntites(sf::FloatRect shotRectArr[], sf::Vector2u viewport,sf::Time deltaTime);
+	void updateEntites(BasicShot*** shotArr, Missile*** missileArr, sf::Vector2u viewport,sf::Time deltaTime);
 	void drawEnemies(sf::RenderTarget & target);
 	void spawnEnemies();
 

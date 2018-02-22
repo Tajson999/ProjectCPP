@@ -6,7 +6,6 @@ class Game {
 private:
 	Player p1;
 	EntityHandler eH;
-	sf::FloatRect shotRectArr[53];
 	sf::Texture backgroundTexture;
 	sf::Sprite backgroundSprite;
 public:

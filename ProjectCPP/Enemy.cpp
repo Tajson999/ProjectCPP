@@ -41,22 +41,37 @@ double Enemy::getDamage(){
 	return this->damage;
 }
 
-bool Enemy::isDestroyed(sf::FloatRect shotRectArr[], int shotArrSize, sf::Vector2u viewport){
+void Enemy::deactivate() {
+	this->setActive(0);
+	this->setSpritePosition(sf::Vector2f(-200, -200));
+}
+
+bool Enemy::isDestroyed(sf::Vector2u viewport){
 	bool destroyed = false;
 	//if active == 1 && (sprite.x < viewport.x || sprite.x + sprite.height < 0 || sprite.y > viewport.y || sprite.y + sprite.width < 0)
 	if (this->getActive() == 1 && ((viewport.x < this->getSprite().getGlobalBounds().left || 0 > this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().height) || (viewport.y < this->getSprite().getGlobalBounds().top) || 0 > this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().width)) {
 		destroyed = true;
 		cout << "out of bounds ";
 	}
+	return destroyed;
+}
+
+bool Enemy::isDestroyed(Shot*** missileArr, int shotArrSize) {
+	Shot **shotArrPtr = (*missileArr);
+	bool destroyed = false;
 	for (int j = 0; j < shotArrSize && destroyed == false; j++) {
-		if (this->getSprite().getGlobalBounds().intersects(shotRectArr[j])) {
+		if (this->getSprite().getGlobalBounds().intersects(shotArrPtr[j]->getSprite().getGlobalBounds())) {
 			if (this->life == 1) {
 				destroyed = true;
+				
 				cout << "shot down ";
 			}
 			else {
 				this->life -= 1;
 			}
+			shotArrPtr[j]->setSpritePosition(sf::Vector2f(-100, -100));
+			shotArrPtr[j]->setActive(0);
+			shotArrPtr[j]->setLifeSpan(0);
 		}
 	}
 

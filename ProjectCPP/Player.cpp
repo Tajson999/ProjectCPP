@@ -89,14 +89,12 @@ double Player::getMissileCD(){
 	return this->missileCD;
 }
 
-void Player::getShotArr(sf::FloatRect shotRectArr[]) {
-	for (int i = 0; i < this->shotCapacity; i++) {
-		shotRectArr[i] = this->shotArr[i]->getSprite().getGlobalBounds();
+BasicShot*** Player::getShotArr() {
+	return &this->shotArr;
+}
 
-	}
-	for (int i = 0; i < this->missilesCapacity; i++) {
-		shotRectArr[i + 50] = this->missileArr[i]->getSprite().getGlobalBounds();
-	}
+Missile *** Player::getMissileArr() {
+	return &this->missileArr;
 }
 
 
@@ -202,11 +200,12 @@ void Player::shoot(){
 	}
 }
 
-void Player::checkDamage(sf::Sprite enemyArr[], int nrOfEnemies){
-
+void Player::checkDamage(Enemy*** enemyArr, int nrOfEnemies){
+	Enemy **enemyArrPtr = *(enemyArr);
 
 	for (int i = 0; i < nrOfEnemies; i++) {
-		if (this->getSprite().getGlobalBounds().intersects(enemyArr[i].getGlobalBounds())) {
+		if (this->getSprite().getGlobalBounds().intersects(enemyArrPtr[i]->getSprite().getGlobalBounds())) {
+			enemyArrPtr[i]->deactivate();
 			this->takeDamage(1);
 		}
 

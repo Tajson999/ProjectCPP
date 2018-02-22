@@ -57,6 +57,14 @@ int EntityHandler::getNrOfEntities() {
 	return this->nrOfEntites;
 }
 
+BasicEnemy *** EntityHandler::getBasicEnemyArr() {
+	return &this->basicEnemyArr;
+}
+
+Enemy2 *** EntityHandler::getEnemy2Arr() {
+	return &this->enemy2Arr;
+}
+
 
 void EntityHandler::spawnBasicEnemy(sf::Vector2f v, int life, int damage) {
 	bool spawned = false;
@@ -88,19 +96,37 @@ void EntityHandler::spawnEnemy2(sf::Vector2f v, int life, int damage, int direct
 	}
 }
 
-void EntityHandler::updateEntites(sf::FloatRect shotRectArr[], sf::Vector2u viewport, sf::Time deltaTime) {	
+
+void EntityHandler::updateEntites(BasicShot*** shotArr, Missile*** missileArr, sf::Vector2u viewport, sf::Time deltaTime) {	
 	//updating enemy
-		for (int i = 0; i < this->capacity; i++) {
+	
+
+	for (int i = 0; i < this->capacity; i++) {
 		if (this->basicEnemyArr[i]->getActive() == 1) {
 			this->basicEnemyArr[i]->update(deltaTime);
-			if (this->basicEnemyArr[i]->isDestroyed(shotRectArr, 53, viewport)) {
+			if (this->basicEnemyArr[i]->isDestroyed(viewport)) {
+				this->deactivateEnemy(this->basicEnemyArr[i]);
+				cout << "Destoryed a basic Enemy " << endl;
+			}
+			else if (this->basicEnemyArr[i]->isDestroyed((Shot ***)shotArr, 50)) {
+				this->deactivateEnemy(this->basicEnemyArr[i]);
+				cout << "Destoryed a basic Enemy " << endl;
+			}else if(this->basicEnemyArr[i]->isDestroyed((Shot ***)missileArr,3)){
 				this->deactivateEnemy(this->basicEnemyArr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}
 		}
 		if (this->enemy2Arr[i]->getActive() == 1) {
 			this->enemy2Arr[i]->update(deltaTime);
-			if (this->enemy2Arr[i]->isDestroyed(shotRectArr, 53, viewport)) {
+			if (this->enemy2Arr[i]->isDestroyed(viewport)) {
+				this->deactivateEnemy(this->enemy2Arr[i]);
+				cout << "Destoryed a basic Enemy " << endl;
+			}
+			else if (this->enemy2Arr[i]->isDestroyed((Shot ***)shotArr, 50)) {
+				this->deactivateEnemy(this->enemy2Arr[i]);
+				cout << "Destoryed a basic Enemy " << endl;
+			}
+			else if (this->enemy2Arr[i]->isDestroyed((Shot ***)missileArr, 3)) {
 				this->deactivateEnemy(this->enemy2Arr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}

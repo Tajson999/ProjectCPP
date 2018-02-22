@@ -30,7 +30,8 @@ public:
 	void setShotCD(double CD);
 	double getShotCD();
 	double getMissileCD();
-	void getShotArr(sf::FloatRect shotRectArr[]);
+	BasicShot*** getShotArr();
+	Missile*** getMissileArr();
 
 	void takeDamage(double damage);
 	void moveUp(sf::Time deltaTime);
@@ -39,7 +40,7 @@ public:
 	void moveLeft(sf::Time deltaTime);
 	void update(sf::Time deltaTime);
 	void shoot();
-	void checkDamage(sf::Sprite enemyArr[], int nrOfEnemies);
+	void checkDamage(Enemy*** enemyArr, int nrOfEnemies);
 	void shootMissile(Enemy *arget);
 	void draw(sf::RenderTarget& target, sf::RenderStates states)const;
 };
