@@ -6,11 +6,13 @@ class Enemy2: public Enemy{
 private:
 	int life;
 	int stage;
-
+	int direction;
 public:
+	static const int LEFT = -1;
+	static const int RIGHT = 1;
 	Enemy2();
 	~Enemy2();
-
+	void setDirection(int d);
 	void update(sf::Time deltaTime);
 
 };

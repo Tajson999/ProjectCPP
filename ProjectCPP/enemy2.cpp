@@ -2,6 +2,7 @@
 #include <iostream>
 Enemy2::Enemy2() :Enemy(2.0){
 	int life = 1;
+	this->direction = Enemy2::RIGHT;
 	this->setTexture("spriteSheet.png");
 	this->setSpriteRect(sf::IntRect(37, 37, 31, 31));
 	this->setSpriteOrigin(sf::Vector2f(18.5, 18.5));
@@ -13,6 +14,10 @@ Enemy2::~Enemy2()
 {
 }
 
+void Enemy2::setDirection(int d) {
+	this->direction = d;
+}
+
 void Enemy2::update(sf::Time deltaTime)
 {
 	if (this->getSprite().getTextureRect().left == 37) {
@@ -21,5 +26,10 @@ void Enemy2::update(sf::Time deltaTime)
 	else {
 		this->moveSpriteRect(-66, 0);
 	}
-	this->move(sf::Vector2f(.1*deltaTime.asMilliseconds(), .1*deltaTime.asMilliseconds()));
+	if (this->direction == Enemy2::RIGHT) {
+		this->move(sf::Vector2f(.1*deltaTime.asMilliseconds(), .1*deltaTime.asMilliseconds()));
+	}
+	else {
+		this->move(sf::Vector2f(-.1*deltaTime.asMilliseconds(), .1*deltaTime.asMilliseconds()));
+	}
 }

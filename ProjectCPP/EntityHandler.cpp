@@ -74,13 +74,14 @@ void EntityHandler::spawnBasicEnemy(sf::Vector2f v, int life, int damage) {
 	}
 }
 
-void EntityHandler::spawnEnemy2(sf::Vector2f v, int life, int damage){
+void EntityHandler::spawnEnemy2(sf::Vector2f v, int life, int damage, int direction){
 	bool spawned = false;
 	for (int i = 0; i < this->capacity && spawned == false; i++) {
 		if (this->enemy2Arr[i]->getActive() == 0) {
 			this->enemy2Arr[i]->setSpritePosition(v);
 			this->enemy2Arr[i]->setActive(1);
 			this->enemy2Arr[i]->setLife(life);
+			this->enemy2Arr[i]->setDirection(direction);
 			this->enemy2Arr[i]->setDamage(damage);
 			spawned = true;
 		}
@@ -128,16 +129,20 @@ void EntityHandler::spawnEnemies(){
 			int random = rand() % 2;
 			switch (random) {
 			case 0:
-				this->spawnEnemy2(sf::Vector2f(10, 1), (a / 60) + 1, (a / 120) + 1);
-				this->spawnEnemy2(sf::Vector2f(47, 1), (a / 60) + 1, (a / 120) + 1);
-				this->spawnEnemy2(sf::Vector2f(97, 1), (a / 60) + 1, (a / 120) + 1);
+				this->spawnEnemy2(sf::Vector2f(10, 1), (a / 60) + 1, (a / 120) + 1, Enemy2::RIGHT);
+				this->spawnEnemy2(sf::Vector2f(84, 1), (a / 60) + 1, (a / 120) + 1, Enemy2::RIGHT);
+				this->spawnEnemy2(sf::Vector2f(158, 1), (a / 60) + 1, (a / 120) + 1, Enemy2::RIGHT);
+				break;
+			case 1:
+				this->spawnEnemy2(sf::Vector2f(410, 1), (a / 60) + 1, (a / 120) + 1, Enemy2::LEFT);
+				this->spawnEnemy2(sf::Vector2f(484, 1), (a / 60) + 1, (a / 120) + 1, Enemy2::LEFT);
+				this->spawnEnemy2(sf::Vector2f(558, 1), (a / 60) + 1, (a / 120) + 1, Enemy2::LEFT);
 				break;
 			default:
 				break;
 			}
 			cout << "spawned new enemies with life " << (a / 60) + 1 << " and damage " << (a / 120) + 1 << endl;
-			this->spawnBasicEnemy(sf::Vector2f(300,200), (a/60) + 1, (a/120) + 1);
-			this->spawnEnemy2(sf::Vector2f(400, 100), (a/60) + 1, (a/120) + 1);
+			this->spawnBasicEnemy(sf::Vector2f(300,100), (a/60) + 1, (a/120) + 1);
 			this->spawnedThisCycle = true;
 		}
 		
