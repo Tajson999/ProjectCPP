@@ -168,11 +168,18 @@ void EntityHandler::spawnEnemies(){
 				break;
 			}
 			cout << "spawned new enemies with life " << (a / 60) + 1 << " and damage " << (a / 120) + 1 << endl;
-			this->spawnBasicEnemy(sf::Vector2f(300,100), (a/60) + 1, (a/120) + 1);
 			this->spawnedThisCycle = true;
 		}
 		
-	}else {
+	}
+	else if (a % 3 == 0) {
+		if (this->spawnedThisCycle == false) {
+			cout << "spawned new enemies with life " << (a / 60) + 1 << " and damage " << (a / 120) + 1 << endl;
+			this->spawnBasicEnemy(sf::Vector2f(rand() % 700, 20), (a / 60) + 1, (a / 120) + 1);
+			this->spawnedThisCycle = true;
+		}
+	}
+	else {
 		this->spawnedThisCycle = false;
 	}
 }
