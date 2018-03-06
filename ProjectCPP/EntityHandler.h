@@ -18,6 +18,7 @@ private:
 
 	//void expand();
 public:
+	EntityHandler(sf::Texture *textue);
 	EntityHandler();
 	~EntityHandler();
 	void setCapacity(int c);

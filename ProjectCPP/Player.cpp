@@ -1,10 +1,39 @@
 #include "Player.h"
 #include <iostream>
+Player::Player(sf::Texture * texture) {
+	this->shotCapacity = 50;
+	this->shotArr = new BasicShot*[this->shotCapacity];
+	for (int i = 0; i < this->shotCapacity; i++) {
+		this->shotArr[i] = new BasicShot(texture,sf::Vector2f(-100, -100));
+	}
+
+	this->missilesCapacity = 3;
+	this->missileArr = new Missile*[this->missilesCapacity];
+	for (int i = 0; i < this->missilesCapacity; i++) {
+		this->missileArr[i] = new Missile(texture);
+		this->missileArr[i]->setActive(0);
+		this->missileArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
+	}
+
+	this->nrOfCannons = 1;
+
+	this->setTexture(texture);
+	this->setSpriteRect(sf::IntRect(275, 414, 50, 40));
+	this->setTextureSmooth();
+	this->setSpriteScale(sf::Vector2f(1.5f, 1.5f));
+	this->setSpriteOrigin(sf::Vector2f(25, 0));
+	this->score = 0;
+	this->life = 3;
+	this->invulnerability = 0;
+	this->shotCD = 0;
+	this->missileCD = 0;
+	cout << "Create player" << endl;
+}
 Player::Player() {
 	this->shotCapacity = 50;
 	this->shotArr = new BasicShot*[this->shotCapacity];
 	for (int i = 0; i < this->shotCapacity; i++) {
-		this->shotArr[i] = new BasicShot(sf::Vector2f(-100,-100));
+		this->shotArr[i] = new BasicShot();
 	}
 
 	this->missilesCapacity = 3;
@@ -14,6 +43,8 @@ Player::Player() {
 		this->missileArr[i]->setActive(0);
 		this->missileArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
 	}
+
+	this->nrOfCannons = 1;
 
 	this->setTexture("spriteSheet.png");
 	this->setSpriteRect(sf::IntRect(275, 414, 50, 40));
@@ -101,6 +132,10 @@ Missile *** Player::getMissileArr() {
 	return &this->missileArr;
 }
 
+
+void Player::addOneShot() {
+	this->nrOfCannons++;
+}
 
 void Player::takeDamage(double damage) {
 	if (this->invulnerability <= 0) {
@@ -191,12 +226,24 @@ void Player::update( sf::Time deltaTime) {
 void Player::shoot(){
 	bool shoot = false;
 	if (this->shotCD <= 0) {
+		//calculate the spaceBetweenShots
+		double spaceBetweenShots = this->getSprite().getTextureRect().width /(this->nrOfCannons + 1);
+		double spriteLeftFlank = this->getSprite().getPosition().x - this->getSprite().getTextureRect().width;
+
+		int nrOfPlacedShots = 0;
+		double launchCord = 2*spaceBetweenShots;
 		for (int i = 0; i < this->shotCapacity && shoot == false; i++) {
 			if (this->shotArr[i]->getActive() == 0) {
-				this->shotArr[i]->setSpritePosition(sf::Vector2f(this->getSprite().getPosition().x, this->getSprite().getPosition().y));
+				this->shotArr[i]->setSpritePosition(sf::Vector2f(spriteLeftFlank + launchCord, this->getSprite().getPosition().y));
 				this->shotArr[i]->setActive(1);
 				this->shotArr[i]->setLifeSpan(800);
-				shoot = true;
+				nrOfPlacedShots++;
+				if (nrOfPlacedShots == this->nrOfCannons) {
+					shoot = true;
+				}
+				else {
+					launchCord += 2*spaceBetweenShots;
+				}
 				this->shotCD = .25;
 			}
 		}

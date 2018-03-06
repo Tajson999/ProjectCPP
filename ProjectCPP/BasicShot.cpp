@@ -7,9 +7,9 @@ BasicShot::BasicShot(double life) :Shot(life){
 	this->setTextureSmooth();
 }
 
-BasicShot::BasicShot(sf::Vector2f v, double life): Shot(life) {
+BasicShot::BasicShot(sf::Texture *texture, sf::Vector2f v, double life): Shot(life) {
 	this->active = 0;
-	this->setTexture("spriteSheet.png");
+	this->setTexture(texture);
 	this->setSpriteRect(sf::IntRect(48, 176, 8, 21));
 	this->setTextureSmooth();
 	this->setSpritePosition(v);

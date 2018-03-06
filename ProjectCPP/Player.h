@@ -19,7 +19,9 @@ private:
 	int missilesCapacity;
 	double shotCD;
 	double missileCD;
+	int nrOfCannons;
 public:
+	Player(sf::Texture *texture);
 	Player();
 	~Player();
 	Player(const Player &p);
@@ -33,6 +35,9 @@ public:
 	void setMissileCD(double CD);
 	BasicShot*** getShotArr();
 	Missile*** getMissileArr();
+
+	//powerups
+	void addOneShot();
 
 	void takeDamage(double damage);
 	void moveUp(sf::Time deltaTime);

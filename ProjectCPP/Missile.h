@@ -12,6 +12,7 @@ private:
 	Enemy *target;
 public:
 	Missile(Enemy *target, double lifespan = 800);
+	Missile(sf::Texture *texture);
 	Missile();
 	~Missile();
 

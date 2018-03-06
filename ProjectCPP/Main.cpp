@@ -17,8 +17,8 @@ int main() {
 	sf::Clock clock;
 	srand(time(NULL));
 	Game game = Game();
+	bool playing = false;
 	while (window.isOpen()) {
-
 		sf::Time deltaTime = clock.restart();
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -28,9 +28,9 @@ int main() {
 			
 		}
 		
-		game.update(deltaTime, window.getSize());
+		game.update(deltaTime, window.getSize(), &window, playing);
 		window.clear();
-		game.draw(window);
+		game.draw(window, playing);
 		window.display();
 	}
 	getchar();

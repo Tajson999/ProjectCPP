@@ -11,6 +11,16 @@ Missile::Missile(Enemy * target, double lifespan): Shot(lifespan){
 	cout << "create a missile with active: " << this->getActive() << endl;
 }
 
+Missile::Missile(sf::Texture *texture) : Shot() {
+	this->speed = 0;
+	this->direction = 0;
+	this->setTexture("texture");
+	this->setSpriteScale(sf::Vector2f(0.3f, 0.3f));
+	this->reDirectCD = 0;
+	this->target = nullptr;
+	cout << "create a missile with active: " << this->getActive() << endl;
+}
+
 Missile::Missile(): Shot(){
 	this->speed = 0;
 	this->direction = 0;

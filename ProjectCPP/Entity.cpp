@@ -21,6 +21,10 @@ void Entity::setTexture(string path) {
 	this->sprite.setTexture(texture);
 }
 
+void Entity::setTexture(sf::Texture * texture) {
+	this->sprite.setTexture(*texture);
+}
+
 void Entity::setTextureSmooth() {
 	this->texture.setSmooth(true);
 }

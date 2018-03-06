@@ -14,6 +14,24 @@
 //	this->entites = tempArr;
 //}
 
+EntityHandler::EntityHandler(sf::Texture *texture) {
+	this->capacity = 20;
+	this->nrOfEntites = 0;
+	this->shotCD = 0;
+	this->spawnedThisCycle = false;
+	this->basicEnemyArr = new BasicEnemy*[this->capacity];
+	for (int i = 0; i < this->capacity; i++) {
+		this->basicEnemyArr[i] = new BasicEnemy(texture);
+		this->basicEnemyArr[i]->setSpritePosition(sf::Vector2f(-200, -200));
+	}
+
+	this->enemy2Arr = new Enemy2*[this->capacity];
+	for (int i = 0; i < this->capacity; i++) {
+		this->enemy2Arr[i] = new Enemy2(texture);
+		this->enemy2Arr[i]->setSpritePosition(sf::Vector2f(-200, -200));
+	}
+}
+
 EntityHandler::EntityHandler() {
 	this->capacity = 20;
 	this->nrOfEntites = 0;

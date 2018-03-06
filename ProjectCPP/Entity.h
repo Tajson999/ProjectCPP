@@ -15,6 +15,7 @@ public:
 	void setTexture(string path, int x, int y, int width, int hight);
 	void setTexture(string path, sf::IntRect r);
 	void setTexture(string path);
+	void setTexture(sf::Texture *texture);
 	void setTextureSmooth();
 	void setSpriteOrigin(sf::Vector2f v);
 	void setSpriteRect(sf::IntRect r);

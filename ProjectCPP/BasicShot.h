@@ -10,7 +10,7 @@ private:
 	int active;
 public:
 	BasicShot(double life = 800);
-	BasicShot(sf::Vector2f v, double life = 800);
+	BasicShot(sf::Texture *texture, sf::Vector2f v, double life = 800);
 	~BasicShot();
 	void update(sf::Time deltaTime);
 };
