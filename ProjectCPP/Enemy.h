@@ -22,7 +22,7 @@ public:
 
 	virtual void update(sf::Time deltaTime) = 0;
 	bool isDestroyed(sf::Vector2u viewport);
-	bool isDestroyed(Shot*** missileArr, int shotArrSize);
+	bool isDestroyed(Shot*** missileArr, int shotArrSize, int &score);
 
 };
 #endif // !BASICENEMY_H

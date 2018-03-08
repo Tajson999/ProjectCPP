@@ -17,7 +17,7 @@ int main() {
 	sf::Clock clock;
 	srand(time(NULL));
 	Game game = Game();
-	bool playing = false;
+	int playing = 0;
 	while (window.isOpen()) {
 		sf::Time deltaTime = clock.restart();
 		sf::Event event;

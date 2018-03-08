@@ -14,7 +14,7 @@ Missile::Missile(Enemy * target, double lifespan): Shot(lifespan){
 Missile::Missile(sf::Texture *texture) : Shot() {
 	this->speed = 0;
 	this->direction = 0;
-	this->setTexture("texture");
+	this->setTexture(texture);
 	this->setSpriteScale(sf::Vector2f(0.3f, 0.3f));
 	this->reDirectCD = 0;
 	this->target = nullptr;
@@ -32,6 +32,7 @@ Missile::Missile(): Shot(){
 }
 
 Missile::~Missile(){
+	delete target;
 }
 
 void Missile::setSpeed(double speed){

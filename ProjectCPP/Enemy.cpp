@@ -56,14 +56,14 @@ bool Enemy::isDestroyed(sf::Vector2u viewport){
 	return destroyed;
 }
 
-bool Enemy::isDestroyed(Shot*** missileArr, int shotArrSize) {
+bool Enemy::isDestroyed(Shot*** missileArr, int shotArrSize, int &score) {
 	Shot **shotArrPtr = (*missileArr);
 	bool destroyed = false;
 	for (int j = 0; j < shotArrSize && destroyed == false; j++) {
 		if (this->getSprite().getGlobalBounds().intersects(shotArrPtr[j]->getSprite().getGlobalBounds())) {
 			if (this->life == 1) {
 				destroyed = true;
-				
+				score += 100;
 				cout << "shot down ";
 			}
 			else {

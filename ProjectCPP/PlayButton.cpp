@@ -17,7 +17,7 @@ PlayButton::~PlayButton() {
 
 void PlayButton::update(sf::Time deltaTime) {
 }
-void PlayButton::update(sf::Window *window, bool & playing) {
+void PlayButton::update(sf::Window *window, int & playing, bool &startingNewGame) {
 	double spriteRightFlank = this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().width;
 	double spriteLeftFlank = this->getSprite().getGlobalBounds().left;
 	double spriteBottomFlank = this->getSprite().getGlobalBounds().top + this->getSprite().getGlobalBounds().height;
@@ -25,7 +25,8 @@ void PlayButton::update(sf::Window *window, bool & playing) {
 	if (spriteLeftFlank < sf::Mouse::getPosition(*window).x && sf::Mouse::getPosition(*window).x < spriteRightFlank && spriteTopFlank < sf::Mouse::getPosition(*window).y && sf::Mouse::getPosition(*window).y < spriteBottomFlank) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !playing) {
 			cout << "staring game" << endl;
-			playing = true;
+			playing = 1;
+			startingNewGame = true;
 		}
 	}
 }

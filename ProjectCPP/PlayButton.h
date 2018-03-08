@@ -10,8 +10,7 @@ public:
 	~PlayButton();
 
 	void update(sf::Time deltaTime);
-	void update(sf::Window *window, bool &playing);
-	void play();
+	void update(sf::Window *window, int &playing, bool &startingNewGame);
 
 };
 #endif // !EXITBUTTON_H

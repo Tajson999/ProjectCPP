@@ -27,7 +27,7 @@ public:
 	Player(const Player &p);
 	double getLife()const;
 	void setLife(double l);
-	int getScore()const;
+	int& getScore();
 	void setScore(int s);
 	void setShotCD(double CD);
 	double getShotCD();
@@ -39,6 +39,7 @@ public:
 	//powerups
 	void addOneShot();
 
+	void reset();
 	void takeDamage(double damage);
 	void moveUp(sf::Time deltaTime);
 	void moveDown(sf::Time deltaTime);

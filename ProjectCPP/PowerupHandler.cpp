@@ -43,6 +43,13 @@ void PowerupHandler::deActivatePowerup(Powerup *p) {
 	p->setSpritePosition(sf::Vector2f(-100, -100));
 }
 
+void PowerupHandler::reset() {
+	for (int i = 0; i < this->nrOfMoreShots; i++) {
+		this->deActivatePowerup(&moreShotsPtr[i]);		
+	}
+	this->time.restart();
+}
+
 
 void PowerupHandler::spawnPowerups() {
 	//spawn powerups

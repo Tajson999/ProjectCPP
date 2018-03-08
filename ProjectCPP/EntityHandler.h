@@ -32,9 +32,10 @@ public:
 	void spawnBasicEnemy(sf::Vector2f v, int life, int damage);
 	void spawnEnemy2(sf::Vector2f v, int life, int damage, int direction);
 	//void removeEntity(int i);
-	void updateEntites(BasicShot*** shotArr, Missile*** missileArr, sf::Vector2u viewport,sf::Time deltaTime);
+	void updateEntites(BasicShot*** shotArr, Missile*** missileArr, sf::Vector2u viewport,sf::Time deltaTime, int &score);
 	void drawEnemies(sf::RenderTarget & target);
 	void spawnEnemies();
+	void reset();
 
 	void deactivateEnemy(BasicEnemy *e);
 	void deactivateEnemy(Enemy2 *e);

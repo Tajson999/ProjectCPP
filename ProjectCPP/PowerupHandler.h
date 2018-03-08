@@ -19,6 +19,8 @@ public:
 	void spawnMoreShot(sf::Vector2f v);
 	void deActivatePowerup(Powerup *p);
 
+	void reset();
+
 	void spawnPowerups();
 	void updateEntites(Player *p, sf::Vector2u viewport, sf::Time deltaTime);
 	void drawPowerups(sf::RenderTarget & target);

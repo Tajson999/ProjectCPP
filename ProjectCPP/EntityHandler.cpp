@@ -115,7 +115,7 @@ void EntityHandler::spawnEnemy2(sf::Vector2f v, int life, int damage, int direct
 }
 
 
-void EntityHandler::updateEntites(BasicShot*** shotArr, Missile*** missileArr, sf::Vector2u viewport, sf::Time deltaTime) {	
+void EntityHandler::updateEntites(BasicShot*** shotArr, Missile*** missileArr, sf::Vector2u viewport, sf::Time deltaTime, int &score) {
 	//updating enemy
 	
 
@@ -126,10 +126,10 @@ void EntityHandler::updateEntites(BasicShot*** shotArr, Missile*** missileArr, s
 				this->deactivateEnemy(this->basicEnemyArr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}
-			else if (this->basicEnemyArr[i]->isDestroyed((Shot ***)shotArr, 50)) {
+			else if (this->basicEnemyArr[i]->isDestroyed((Shot ***)shotArr, 50, score)) {
 				this->deactivateEnemy(this->basicEnemyArr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
-			}else if(this->basicEnemyArr[i]->isDestroyed((Shot ***)missileArr,3)){
+			}else if(this->basicEnemyArr[i]->isDestroyed((Shot ***)missileArr,3, score)){
 				this->deactivateEnemy(this->basicEnemyArr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}
@@ -140,11 +140,11 @@ void EntityHandler::updateEntites(BasicShot*** shotArr, Missile*** missileArr, s
 				this->deactivateEnemy(this->enemy2Arr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}
-			else if (this->enemy2Arr[i]->isDestroyed((Shot ***)shotArr, 50)) {
+			else if (this->enemy2Arr[i]->isDestroyed((Shot ***)shotArr, 50, score)) {
 				this->deactivateEnemy(this->enemy2Arr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}
-			else if (this->enemy2Arr[i]->isDestroyed((Shot ***)missileArr, 3)) {
+			else if (this->enemy2Arr[i]->isDestroyed((Shot ***)missileArr, 3, score)) {
 				this->deactivateEnemy(this->enemy2Arr[i]);
 				cout << "Destoryed a basic Enemy " << endl;
 			}
@@ -200,6 +200,15 @@ void EntityHandler::spawnEnemies(){
 	else {
 		this->spawnedThisCycle = false;
 	}
+}
+
+void EntityHandler::reset() {
+	for (int i = 0; i < this->nrOfEntites; i++) {
+		deactivateEnemy(this->basicEnemyArr[i]);
+		deactivateEnemy(this->enemy2Arr[i]);
+	}
+	this->shotCD = 0;
+	this->time.restart();
 }
 
 void EntityHandler::deactivateEnemy(BasicEnemy *e){

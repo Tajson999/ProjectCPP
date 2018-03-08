@@ -100,8 +100,8 @@ void Player::setLife(double l) {
 	this->life = l;
 }
 
-int Player::getScore() const {
-	return this->score;
+int& Player::getScore() {
+	return (this->score);
 }
 
 void Player::setScore(int s) {
@@ -137,15 +137,35 @@ void Player::addOneShot() {
 	this->nrOfCannons++;
 }
 
+void Player::reset() {
+	this->score = 0;
+	this->life = 3;
+	this->invulnerability = 0;
+	this->shotCD = 0;
+	this->missileCD = 0;
+	this->nrOfCannons = 1;
+	this->setSpritePosition(sf::Vector2f(300, 200));
+	for (int i = 0; i < this->shotCapacity; i++) {
+		this->shotArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
+		this->shotArr[i]->setActive(0);
+	}
+	for (int i = 0; i < this->missilesCapacity; i++) {
+		this->missileArr[i]->setActive(0);
+		this->missileArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
+	}
+
+}
+
 void Player::takeDamage(double damage) {
 	if (this->invulnerability <= 0) {
 		this->life -= damage;
 		cout << "You took damage you now have " << this->life << " life left" << endl;
+		this->invulnerability = 1;
 	}
 	if (this->life <= 0 ) {
 		cout << "You loose" << endl;
 	}
-	this->invulnerability = 5;
+	
 	
 }
 
