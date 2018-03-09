@@ -25,6 +25,7 @@ PowerupHandler::PowerupHandler() {
 
 PowerupHandler::~PowerupHandler() {
 	delete[] this->moreShotsPtr;
+	delete[] this->bombPtr;
 }
 
 void PowerupHandler::setTextures(sf::Texture * texture) {

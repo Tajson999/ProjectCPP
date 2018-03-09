@@ -37,6 +37,7 @@ public:
 	void spawnEnemies();
 	void reset();
 
+	void deactivateAllEnemies(int &score);
 	void deactivateEnemy(BasicEnemy *e);
 	void deactivateEnemy(Enemy2 *e);
 

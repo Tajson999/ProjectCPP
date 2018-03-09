@@ -211,6 +211,20 @@ void EntityHandler::reset() {
 	this->time.restart();
 }
 
+void EntityHandler::deactivateAllEnemies(int &score) {
+	cout << "Deactivating all enmies" << endl;
+	for (int i = 0; i < this->capacity; i++) {
+		if (this->basicEnemyArr[i]->getActive() == 1) {
+			deactivateEnemy(this->basicEnemyArr[i]);
+			score += 100;
+		}
+		if (this->enemy2Arr[i]->getActive() == 1) {
+			score += 100;
+			deactivateEnemy(this->enemy2Arr[i]);
+		}
+	}
+}
+
 void EntityHandler::deactivateEnemy(BasicEnemy *e){
 	e->setActive(0);
 	e->setSpritePosition(sf::Vector2f(-200, -200));

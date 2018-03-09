@@ -69,6 +69,9 @@ sf::Sprite Entity::getSprite() {
 	return this->sprite;
 }
 
+void Entity::update(sf::Time deltaTime) {
+}
+
 void Entity::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(sprite, states);
 }

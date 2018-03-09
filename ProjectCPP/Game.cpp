@@ -37,6 +37,13 @@ void Game::update(sf::Time deltaTime, sf::Vector2u viewport, sf::Window* target,
 				p1->shootMissile(eH->closestEnemy(p1->getSprite().getPosition().x, p1->getSprite().getPosition().y));
 			}
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
+			if (p1->getBombCount() > 0) {
+				eH->deactivateAllEnemies(p1->getScore());
+				p1->setBombCount(p1->getBombCount() - 1);
+			}
+		}
+		
 
 		//player updates
 		this->p1->update(deltaTime);

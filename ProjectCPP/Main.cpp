@@ -33,7 +33,5 @@ int main() {
 		game.draw(window, playing);
 		window.display();
 	}
-	getchar();
-
 	return 0;
 }

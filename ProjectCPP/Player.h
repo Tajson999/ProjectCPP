@@ -36,11 +36,12 @@ public:
 	void setMissileCD(double CD);
 	BasicShot*** getShotArr();
 	Missile*** getMissileArr();
-	void addBomb();
 	int getBombCount();
+	void setBombCount(int count);
 
 	//powerups
 	void addOneShot();
+	void addBomb();
 
 	void reset();
 	void takeDamage(double damage);
@@ -49,6 +50,7 @@ public:
 	void moveRight(sf::Time deltaTime);
 	void moveLeft(sf::Time deltaTime);
 	void update(sf::Time deltaTime);
+
 	void shoot();
 	void checkDamage(Enemy*** enemyArr, int nrOfEnemies);
 	void shootMissile(Enemy *arget);

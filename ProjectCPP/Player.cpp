@@ -143,6 +143,10 @@ int Player::getBombCount() {
 	return this->bombCount;
 }
 
+void Player::setBombCount(int count) {
+	this->bombCount = count;
+}
+
 
 void Player::addOneShot() {
 	this->nrOfCannons++;
@@ -253,6 +257,7 @@ void Player::update( sf::Time deltaTime) {
 		this->moveSpriteRect(66, 0);
 	}
 }
+
 
 void Player::shoot(){
 	bool shoot = false;
