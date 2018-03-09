@@ -30,15 +30,11 @@ void Game::update(sf::Time deltaTime, sf::Vector2u viewport, sf::Window* target,
 
 		staringNewGame = false;
 	}
-	statusText.setText("Score: " + to_string(p1->getScore()) + "   Life: " + to_string((int)p1->getLife()));
+	statusText.setText("Score: " + to_string(p1->getScore()) + "   Life: " + to_string((int)p1->getLife()) + "   Bombs: " + to_string(p1->getBombCount()));
 	if (playing == 1) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
 			if (p1->getMissileCD() <= 0) {
-				cout << "started missile shoot" << endl;
-				sf::Clock timer;
-				p1->setMissileCD(3);
 				p1->shootMissile(eH->closestEnemy(p1->getSprite().getPosition().x, p1->getSprite().getPosition().y));
-				cout << "missile shot took" << timer.getElapsedTime().asSeconds() << endl;
 			}
 		}
 

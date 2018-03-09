@@ -20,6 +20,7 @@ private:
 	double shotCD;
 	double missileCD;
 	int nrOfCannons;
+	int bombCount;
 public:
 	Player(sf::Texture *texture);
 	Player();
@@ -35,6 +36,8 @@ public:
 	void setMissileCD(double CD);
 	BasicShot*** getShotArr();
 	Missile*** getMissileArr();
+	void addBomb();
+	int getBombCount();
 
 	//powerups
 	void addOneShot();

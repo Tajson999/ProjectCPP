@@ -27,6 +27,7 @@ Player::Player(sf::Texture * texture) {
 	this->invulnerability = 0;
 	this->shotCD = 0;
 	this->missileCD = 0;
+	this->bombCount = 0;
 	cout << "Create player" << endl;
 }
 Player::Player() {
@@ -130,6 +131,16 @@ BasicShot*** Player::getShotArr() {
 
 Missile *** Player::getMissileArr() {
 	return &this->missileArr;
+}
+
+void Player::addBomb() {
+	if (this->bombCount < 3) {
+		this->bombCount++;
+	}
+}
+
+int Player::getBombCount() {
+	return this->bombCount;
 }
 
 
@@ -284,6 +295,7 @@ void Player::checkDamage(Enemy*** enemyArr, int nrOfEnemies){
 
 void Player::shootMissile(Enemy *target){
 	if (this->missileCD <= 0) {
+		cout << "starting to shoot missile" << endl;
 		this->missileCD = 3;
 		bool shoot = false;
 		for (int i = 0; i < this->missilesCapacity && shoot == false; i++) {

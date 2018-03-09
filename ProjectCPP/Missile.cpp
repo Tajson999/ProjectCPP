@@ -15,10 +15,12 @@ Missile::Missile(sf::Texture *texture) : Shot() {
 	this->speed = 0;
 	this->direction = 0;
 	this->setTexture(texture);
-	this->setSpriteScale(sf::Vector2f(0.3f, 0.3f));
+	this->setSpriteRect(sf::IntRect(79, 207, 11, 23));
+	this->setSpriteScale(sf::Vector2f(2, 2));
 	this->reDirectCD = 0;
 	this->target = nullptr;
 	cout << "create a missile with active: " << this->getActive() << endl;
+	// 69 202 80 225
 }
 
 Missile::Missile(): Shot(){
@@ -59,7 +61,7 @@ void Missile::update(sf::Time deltaTime){
 	if (this->getActive() == 1) {
 		//cout << "missile target cords is" << this->target->getSprite().getPosition().x << "," << this->target->getSprite().getPosition().y << endl;
 		if (this->speed < 1) {
-			this->speed += deltaTime.asMilliseconds() / 50;
+			this->speed += 0.05 *deltaTime.asMilliseconds();
 		}
 		if (this->target->getSprite().getPosition().y > 0) {
 			if (this->reDirectCD <= 0 && this->getSprite().getPosition().y  > this->target->getSprite().getPosition().y) {

@@ -1,10 +1,13 @@
 #ifndef POWERUPHANDLER_H
 #define POWERUPHANDLER _H
 #include "Powerup_MoreShots.h"
+#include "Powerup_Bomb.h"
 #include "Player.h"
 class PowerupHandler {
 private:
 	Powerup_MoreShots *moreShotsPtr;
+	Powerup_Bomb *bombPtr;
+	int nrOfBombs;
 	int nrOfMoreShots;
 	sf::Clock time;
 	bool spawnedThisCycle;
@@ -17,6 +20,7 @@ public:
 	void setTextures(sf::Texture *texture);
 
 	void spawnMoreShot(sf::Vector2f v);
+	void spawnBomb(sf::Vector2f v);
 	void deActivatePowerup(Powerup *p);
 
 	void reset();
