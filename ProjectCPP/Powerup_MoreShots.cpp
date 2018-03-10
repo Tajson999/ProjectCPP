@@ -1,13 +1,13 @@
 #include "Powerup_MoreShots.h"
 
-Powerup_MoreShots::Powerup_MoreShots(double speed, double reDirectCD):Powerup(speed,reDirectCD) {
+Powerup_MoreShots::Powerup_MoreShots():Powerup() {
 	this->setSpriteRect(sf::IntRect(209, 237, 19, 27));
 	this->setTextureSmooth();
 	this->setSpritePosition(sf::Vector2f(-100, -100));
 	this->setActive(0);
 }
 
-Powerup_MoreShots::Powerup_MoreShots(sf::Texture * texture, double speed, double reDirectCD) :Powerup(speed,reDirectCD){
+Powerup_MoreShots::Powerup_MoreShots(sf::Texture * texture) :Powerup(){
 	this->setTexture(texture);
 	this->setSpriteScale(sf::Vector2f(2.0, 2.0));
 	this->setSpriteRect(sf::IntRect(209, 237, 19, 27));

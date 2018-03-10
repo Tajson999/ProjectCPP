@@ -5,10 +5,8 @@
 class Powerup :public Entity {
 private:
 	int active;
-	//double speed;
-	//double reDirectCD;
 public:
-	Powerup(double speed, double reDirectCD);
+	Powerup();
 	~Powerup();
 
 	int getActive();

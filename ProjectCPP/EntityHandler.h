@@ -10,7 +10,6 @@ class EntityHandler {
 private:
 	sf::Clock time;
 	int capacity;
-	int nrOfEntites;
 	BasicEnemy* *basicEnemyArr;
 	Enemy2* *enemy2Arr;
 	double shotCD;
@@ -24,8 +23,6 @@ public:
 	~EntityHandler();
 	void setCapacity(int c);
 	int getCapacity();
-	void setNrOfEntites(int e);
-	int getNrOfEntities();
 
 	BasicEnemy*** getBasicEnemyArr();
 	Enemy2*** getEnemy2Arr();

@@ -1,6 +1,6 @@
 #include "Powerup.h"
 
-Powerup::Powerup(double speed, double reDirectCD) {
+Powerup::Powerup() {
 	this->active = 0;
 }
 

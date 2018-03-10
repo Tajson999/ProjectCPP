@@ -1,6 +1,6 @@
 #include "Powerup_Missile.h"
 
-Powerup_Missile::Powerup_Missile(sf::Texture * texture):Powerup(1,1) {
+Powerup_Missile::Powerup_Missile(sf::Texture * texture):Powerup() {
 	this->setTexture(texture);
 	this->setSpriteRect(sf::IntRect(79, 207, 11, 23));
 	this->setSpriteScale(sf::Vector2f(2, 2));
@@ -9,7 +9,7 @@ Powerup_Missile::Powerup_Missile(sf::Texture * texture):Powerup(1,1) {
 	this->setActive(0);
 }
 
-Powerup_Missile::Powerup_Missile():Powerup(1,1) {
+Powerup_Missile::Powerup_Missile():Powerup() {
 	this->setSpritePosition(sf::Vector2f(-100, -100));
 	this->setActive(0);
 }

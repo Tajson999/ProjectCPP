@@ -16,7 +16,6 @@
 
 EntityHandler::EntityHandler(sf::Texture *texture) {
 	this->capacity = 20;
-	this->nrOfEntites = 0;
 	this->shotCD = 0;
 	this->spawnedThisCycle = false;
 	this->basicEnemyArr = new BasicEnemy*[this->capacity];
@@ -34,7 +33,6 @@ EntityHandler::EntityHandler(sf::Texture *texture) {
 
 EntityHandler::EntityHandler(const EntityHandler * eH) {
 	this->capacity = eH->capacity;
-	this->nrOfEntites = eH->capacity;
 	this->shotCD = eH->capacity;
 	this->spawnedThisCycle = eH->spawnedThisCycle;
 	this->basicEnemyArr = new BasicEnemy*[eH->capacity];
@@ -51,7 +49,6 @@ EntityHandler::EntityHandler(const EntityHandler * eH) {
 
 EntityHandler::EntityHandler() {
 	this->capacity = 20;
-	this->nrOfEntites = 0;
 	this->shotCD = 0;
 	this->spawnedThisCycle = false;
 	this->basicEnemyArr = new BasicEnemy*[this->capacity];
@@ -82,14 +79,6 @@ void EntityHandler::setCapacity(int c) {
 
 int EntityHandler::getCapacity() {
 	return this->capacity;
-}
-
-void EntityHandler::setNrOfEntites(int e) {
-	this->nrOfEntites = e;
-}
-
-int EntityHandler::getNrOfEntities() {
-	return this->nrOfEntites;
 }
 
 BasicEnemy *** EntityHandler::getBasicEnemyArr() {
@@ -220,7 +209,7 @@ void EntityHandler::spawnEnemies(){
 }
 
 void EntityHandler::reset() {
-	for (int i = 0; i < this->nrOfEntites; i++) {
+	for (int i = 0; i < this->capacity; i++) {
 		deactivateEnemy(this->basicEnemyArr[i]);
 		deactivateEnemy(this->enemy2Arr[i]);
 	}

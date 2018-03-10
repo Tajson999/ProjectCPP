@@ -20,10 +20,8 @@ HighScoreHandler::~HighScoreHandler() {
 void HighScoreHandler::addHighScore(int score, string name) {
 	bool added = false;
 	for (int i = 0; i < this->nrOf && added == false; i++) {
-		cout << "i = " << i << endl;
 		if (this->scores[i] <= score) {
 			for (int j = this->nrOf-1; j > i; j--) {
-				cout << "j = " << j << endl;
 				this->scores[j] = this->scores[j - 1];
 				this->names[j] = this->names[j - 1];
 			}

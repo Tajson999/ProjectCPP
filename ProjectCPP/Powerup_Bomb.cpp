@@ -1,6 +1,6 @@
 #include "Powerup_Bomb.h"
 
-Powerup_Bomb::Powerup_Bomb(sf::Texture * texture): Powerup(1,1) {
+Powerup_Bomb::Powerup_Bomb(sf::Texture * texture): Powerup() {
 	this->setTexture(texture);
 	this->setSpriteScale(sf::Vector2f(2.0, 2.0));
 	this->setSpriteRect(sf::IntRect(279, 272, 10, 21));
@@ -9,7 +9,7 @@ Powerup_Bomb::Powerup_Bomb(sf::Texture * texture): Powerup(1,1) {
 	this->setActive(0);
 }
 
-Powerup_Bomb::Powerup_Bomb(): Powerup(1,1) {
+Powerup_Bomb::Powerup_Bomb(): Powerup() {
 	this->setActive(0);
 	this->setSpritePosition(sf::Vector2f(-100, -100));
 }
