@@ -21,17 +21,18 @@ int main() {
 	while (window.isOpen()) {
 		sf::Time deltaTime = clock.restart();
 		sf::Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
-			
-		}
+		
 		
 		game.update(deltaTime, window.getSize(), &window, playing);
 		window.clear();
 		game.draw(window, playing);
 		window.display();
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+
+		}
 	}
 	return 0;
 }

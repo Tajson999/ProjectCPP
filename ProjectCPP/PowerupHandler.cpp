@@ -4,15 +4,21 @@ PowerupHandler::PowerupHandler(sf::Texture * texture) {
 	this->nrOfMoreShots = 3;
 	this->spawnedThisCycle = false;
 
-	this->moreShotsPtr = new Powerup_MoreShots[3];
+	this->moreShotsPtr = new Powerup_MoreShots[this->nrOfMoreShots];
 	for (int i = 0; i < this->nrOfMoreShots; i++) {
 		this->moreShotsPtr[i] = Powerup_MoreShots(texture);
 	}
 
 	this->nrOfBombs = 3;
-	this->bombPtr = new Powerup_Bomb[3];
+	this->bombPtr = new Powerup_Bomb[this->nrOfBombs];
 	for (int i = 0; i < this->nrOfBombs; i++) {
 		this->bombPtr[i] = Powerup_Bomb(texture);
+	}
+
+	this->nrOfMissiles = 5;
+	this->missilePtr = new Powerup_Missile[this->nrOfMissiles];
+	for (int i = 0; i < this->nrOfMissiles; i++) {
+		this->missilePtr[i] = Powerup_Missile(texture);
 	}
 }
 
@@ -26,6 +32,7 @@ PowerupHandler::PowerupHandler() {
 PowerupHandler::~PowerupHandler() {
 	delete[] this->moreShotsPtr;
 	delete[] this->bombPtr;
+	delete[] this->missilePtr;
 }
 
 void PowerupHandler::setTextures(sf::Texture * texture) {
@@ -56,6 +63,17 @@ void PowerupHandler::spawnBomb(sf::Vector2f v) {
 	}
 }
 
+void PowerupHandler::spawnMissile(sf::Vector2f v) {
+	bool spawned = false;
+	for (int i = 0; i < this->nrOfMissiles && spawned == false; i++) {
+		if (this->missilePtr[i].getActive() == 0) {
+			this->missilePtr[i].setActive(1);
+			this->missilePtr[i].setSpritePosition(v);
+			spawned = true;
+		}
+	}
+}
+
 void PowerupHandler::deActivatePowerup(Powerup *p) {
 	p->setActive(0);
 	p->setSpritePosition(sf::Vector2f(-100, -100));
@@ -67,6 +85,9 @@ void PowerupHandler::reset() {
 	}
 	for (int i = 0; i < this->nrOfBombs; i++) {
 		this->deActivatePowerup(&bombPtr[i]);
+	}
+	for (int i = 0; i < this->nrOfMissiles; i++) {
+		this->deActivatePowerup(&this->missilePtr[i]);
 	}
 	this->time.restart();
 }
@@ -86,6 +107,13 @@ void PowerupHandler::spawnPowerups() {
 		if (this->spawnedThisCycle == false) {
 			this->spawnBomb(sf::Vector2f(rand() % 750, 1));
 			cout << "Created bomb" << endl;
+			this->spawnedThisCycle = true;
+		}
+	}
+	else if (a % 5 == 0) {
+		if (this->spawnedThisCycle == false) {
+			this->spawnMissile(sf::Vector2f(rand() % 750, 1));
+			cout << "Created Missile" << endl;
 			this->spawnedThisCycle = true;
 		}
 	}
@@ -125,6 +153,19 @@ void PowerupHandler::updateEntites(Player * p, sf::Vector2u viewport, sf::Time d
 			}
 		}
 	}
+	//update missile
+	for (int i = 0; i < this->nrOfMissiles; i++) {
+		if (this->missilePtr[i].getActive() == 1) {
+			this->missilePtr[i].update(deltaTime);
+			if (this->missilePtr->isTriggered(PlayerX, PlayerY, PlayerWidth, PlayerHeight) == true) {
+				this->missilePtr[i].triggerPowerup(p);
+				this->deActivatePowerup(&this->missilePtr[i]);
+			}
+			else if (this->missilePtr[i].isOutOfBounds(viewport) == true) {
+				this->deActivatePowerup(&this->missilePtr[i]);
+			}
+		}
+	}
 }
 
 void PowerupHandler::drawPowerups(sf::RenderTarget & target) {
@@ -136,6 +177,11 @@ void PowerupHandler::drawPowerups(sf::RenderTarget & target) {
 	for (int i = 0; i < this->nrOfBombs; i++) {
 		if (this->bombPtr[i].getActive() == 1) {
 			this->bombPtr[i].draw(target, sf::RenderStates::Default);
+		}
+	}
+	for (int i = 0; i < this->nrOfMissiles; i++) {
+		if (this->missilePtr[i].getActive() == 1) {
+			this->missilePtr[i].draw(target, sf::RenderStates::Default);
 		}
 	}
 }

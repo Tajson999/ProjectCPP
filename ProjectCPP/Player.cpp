@@ -27,6 +27,7 @@ Player::Player(sf::Texture * texture) {
 	this->invulnerability = 0;
 	this->shotCD = 0;
 	this->missileCD = 0;
+	this->nrOfMissiles = 0;
 	this->bombCount = 0;
 	cout << "Create player" << endl;
 }
@@ -147,6 +148,18 @@ void Player::setBombCount(int count) {
 	this->bombCount = count;
 }
 
+void Player::addMissile() {
+	this->nrOfMissiles++;
+}
+
+void Player::subtractMissile() {
+	this->nrOfMissiles--;
+}
+
+int Player::getNrOfMissiles() {
+	return this->nrOfMissiles;
+}
+
 
 void Player::addOneShot() {
 	this->nrOfCannons++;
@@ -159,6 +172,8 @@ void Player::reset() {
 	this->shotCD = 0;
 	this->missileCD = 0;
 	this->nrOfCannons = 1;
+	this->nrOfMissiles = 0;
+	this->bombCount = 0;
 	this->setSpritePosition(sf::Vector2f(300, 200));
 	for (int i = 0; i < this->shotCapacity; i++) {
 		this->shotArr[i]->setSpritePosition(sf::Vector2f(-100, -100));
@@ -300,21 +315,19 @@ void Player::checkDamage(Enemy*** enemyArr, int nrOfEnemies){
 
 void Player::shootMissile(Enemy *target){
 	if (this->missileCD <= 0) {
-		cout << "starting to shoot missile" << endl;
-		this->missileCD = 3;
 		bool shoot = false;
 		for (int i = 0; i < this->missilesCapacity && shoot == false; i++) {
 			if (this->missileArr[i]->getActive() == 0) {
-				cout << "missile " << i << "was set to active" << endl;
 				this->missileArr[i]->setActive(1);
 				this->missileArr[i]->setReDirectCD(.2);
 				this->missileArr[i]->setTarget(target);
-				cout << "missile target locatin is " << target->getSprite().getPosition().x << "," << target->getSprite().getPosition().y << endl;
 				this->missileArr[i]->setDirection(0);
 				this->missileArr[i]->setSpeed(0);
 				this->missileArr[i]->setLifeSpan(4000);
 				this->missileArr[i]->setSpritePosition(this->getSprite().getPosition());
 				shoot = true;
+				this->missileCD = 3;
+				this->subtractMissile();
 			}
 		}
 	}

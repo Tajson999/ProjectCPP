@@ -2,13 +2,16 @@
 #define POWERUPHANDLER _H
 #include "Powerup_MoreShots.h"
 #include "Powerup_Bomb.h"
+#include "Powerup_Missile.h"
 #include "Player.h"
 class PowerupHandler {
 private:
 	Powerup_MoreShots *moreShotsPtr;
 	Powerup_Bomb *bombPtr;
+	Powerup_Missile *missilePtr;
 	int nrOfBombs;
 	int nrOfMoreShots;
+	int nrOfMissiles;
 	sf::Clock time;
 	bool spawnedThisCycle;
 
@@ -21,6 +24,7 @@ public:
 
 	void spawnMoreShot(sf::Vector2f v);
 	void spawnBomb(sf::Vector2f v);
+	void spawnMissile(sf::Vector2f v);
 	void deActivatePowerup(Powerup *p);
 
 	void reset();

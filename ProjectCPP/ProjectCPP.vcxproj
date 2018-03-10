@@ -94,6 +94,7 @@
     <ClCompile Include="Powerup.cpp" />
     <ClCompile Include="PowerupHandler.cpp" />
     <ClCompile Include="Powerup_Bomb.cpp" />
+    <ClCompile Include="Powerup_Missile.cpp" />
     <ClCompile Include="Powerup_MoreShots.cpp" />
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="StatusText.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="Powerup.h" />
     <ClInclude Include="PowerupHandler.h" />
     <ClInclude Include="Powerup_Bomb.h" />
+    <ClInclude Include="Powerup_Missile.h" />
     <ClInclude Include="Powerup_MoreShots.h" />
     <ClInclude Include="Shot.h" />
     <ClInclude Include="StatusText.h" />

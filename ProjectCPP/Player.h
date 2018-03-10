@@ -19,6 +19,7 @@ private:
 	int missilesCapacity;
 	double shotCD;
 	double missileCD;
+	int nrOfMissiles;
 	int nrOfCannons;
 	int bombCount;
 public:
@@ -38,6 +39,9 @@ public:
 	Missile*** getMissileArr();
 	int getBombCount();
 	void setBombCount(int count);
+	void addMissile();
+	void subtractMissile();
+	int getNrOfMissiles();
 
 	//powerups
 	void addOneShot();

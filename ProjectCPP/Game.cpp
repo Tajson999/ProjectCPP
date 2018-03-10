@@ -30,10 +30,10 @@ void Game::update(sf::Time deltaTime, sf::Vector2u viewport, sf::Window* target,
 
 		staringNewGame = false;
 	}
-	statusText.setText("Score: " + to_string(p1->getScore()) + "   Life: " + to_string((int)p1->getLife()) + "   Bombs: " + to_string(p1->getBombCount()));
+	statusText.setText("Score: " + to_string(p1->getScore()) + "   Life: " + to_string((int)p1->getLife()) + "   Bombs: " + to_string(p1->getBombCount()) + "   Missiles: " + to_string(p1->getNrOfMissiles()));
 	if (playing == 1) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-			if (p1->getMissileCD() <= 0) {
+			if (p1->getMissileCD() <= 0 && p1->getNrOfMissiles() > 0) {
 				p1->shootMissile(eH->closestEnemy(p1->getSprite().getPosition().x, p1->getSprite().getPosition().y));
 			}
 		}
