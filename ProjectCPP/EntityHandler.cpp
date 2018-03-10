@@ -32,6 +32,23 @@ EntityHandler::EntityHandler(sf::Texture *texture) {
 	}
 }
 
+EntityHandler::EntityHandler(const EntityHandler * eH) {
+	this->capacity = eH->capacity;
+	this->nrOfEntites = eH->capacity;
+	this->shotCD = eH->capacity;
+	this->spawnedThisCycle = eH->spawnedThisCycle;
+	this->basicEnemyArr = new BasicEnemy*[eH->capacity];
+	for (int i = 0; i < this->capacity; i++) {
+		this->basicEnemyArr[i] = new BasicEnemy(*eH->basicEnemyArr[i]);
+	}
+
+	this->enemy2Arr = new Enemy2*[eH->capacity];
+	for (int i = 0; i < this->capacity; i++) {
+		this->enemy2Arr[i] = new Enemy2(*eH->enemy2Arr[i]);
+	}
+
+}
+
 EntityHandler::EntityHandler() {
 	this->capacity = 20;
 	this->nrOfEntites = 0;

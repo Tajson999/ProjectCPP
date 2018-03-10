@@ -9,6 +9,7 @@ private:
 	double radiant;
 public:
 	BasicEnemy(sf::Texture *texture);
+	BasicEnemy(BasicEnemy &basicEnemy);
 	BasicEnemy();
 	~BasicEnemy();
 

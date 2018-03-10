@@ -34,7 +34,6 @@ Missile::Missile(): Shot(){
 }
 
 Missile::~Missile(){
-	delete target;
 }
 
 void Missile::setSpeed(double speed){

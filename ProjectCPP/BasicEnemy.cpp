@@ -1,7 +1,7 @@
 #include "BasicEnemy.h"
 #include <iostream>
 BasicEnemy::BasicEnemy(sf::Texture *texture) :Enemy() {
-	int life = 1;
+	this->setLife(1);
 	this->setTexture(texture);
 	this->setSpriteRect(sf::IntRect(4, 4, 31, 31));
 	this->setSpritePosition(sf::Vector2f(200, 0));
@@ -10,6 +10,19 @@ BasicEnemy::BasicEnemy(sf::Texture *texture) :Enemy() {
 	this->b = this->getSprite().getPosition().y;
 	this->radiant = 0;
 	this->stage = 0;
+}
+
+BasicEnemy::BasicEnemy(BasicEnemy &basicEnemy) {
+	this->setLife(basicEnemy.getLife());
+	this->setTexture(&(basicEnemy.getTexture()));
+	this->setSpriteRect((sf::IntRect)basicEnemy.getSprite().getLocalBounds());
+	this->setSpritePosition(basicEnemy.getSprite().getPosition());
+	this->setSpriteScale(basicEnemy.getSprite().getScale());
+	this->a = basicEnemy.a;
+	this->b = basicEnemy.b;
+	this->radiant = basicEnemy.radiant;
+	this->stage = basicEnemy.stage;
+	
 }
 
 BasicEnemy::BasicEnemy() :Enemy(){

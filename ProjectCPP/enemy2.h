@@ -11,6 +11,7 @@ public:
 	static const int LEFT = -1;
 	static const int RIGHT = 1;
 	Enemy2(sf::Texture *texture);
+	Enemy2(Enemy2 &enemy2);
 	Enemy2();
 	~Enemy2();
 	void setDirection(int d);
