@@ -61,11 +61,11 @@ void Entity::setSpritePosition(sf::Vector2f v) {
 	this->sprite.setPosition(v);
 }
 
-sf::Texture Entity::getTexture() {
+sf::Texture Entity::getTexture()  const {
 	return this->texture;
 }
 
-sf::Sprite Entity::getSprite() {
+sf::Sprite Entity::getSprite()  const {
 	return this->sprite;
 }
 

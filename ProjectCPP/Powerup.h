@@ -9,12 +9,12 @@ public:
 	Powerup();
 	~Powerup();
 
-	int getActive();
+	int getActive() const;
 	void setActive(int a);
 
-	bool isOutOfBounds(sf::Vector2u viewport);
+	bool isOutOfBounds(sf::Vector2u viewport) const;
 	virtual void update(sf::Time deltaTime) = 0;
 	virtual void triggerPowerup(Player *p) = 0;
-	bool isTriggered(int x, int y, int length, int height);
+	bool isTriggered(int x, int y, int length, int height) const;
 };
 #endif // !POWERUP_H

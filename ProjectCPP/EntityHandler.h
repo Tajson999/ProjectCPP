@@ -22,7 +22,7 @@ public:
 	EntityHandler();
 	~EntityHandler();
 	void setCapacity(int c);
-	int getCapacity();
+	int getCapacity() const;
 
 	BasicEnemy*** getBasicEnemyArr();
 	Enemy2*** getEnemy2Arr();

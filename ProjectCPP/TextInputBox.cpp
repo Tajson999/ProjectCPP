@@ -16,7 +16,7 @@ TextInputBox::TextInputBox() {
 TextInputBox::~TextInputBox() {
 }
 
-string TextInputBox::getInputText() {
+string TextInputBox::getInputText() const {
 	return this->inputText.getString();
 }
 

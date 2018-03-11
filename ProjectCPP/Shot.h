@@ -9,10 +9,10 @@ public:
 	Shot();
 	Shot(double lifespan);
 	~Shot();
-	int getLifeSpan();
+	int getLifeSpan() const;
 	void setLifeSpan(int l);
 
-	int getActive();
+	int getActive() const;
 	void setActive(int a);
 
 };

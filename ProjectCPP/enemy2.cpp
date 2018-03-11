@@ -46,9 +46,9 @@ void Enemy2::update(sf::Time deltaTime)
 		this->moveSpriteRect(-66, 0);
 	}
 	if (this->direction == Enemy2::RIGHT) {
-		this->move(sf::Vector2f(.1*deltaTime.asMilliseconds(), .1*deltaTime.asMilliseconds()));
+		this->move(sf::Vector2f(100*deltaTime.asSeconds(), 100*deltaTime.asSeconds()));
 	}
 	else {
-		this->move(sf::Vector2f(-.1*deltaTime.asMilliseconds(), .1*deltaTime.asMilliseconds()));
+		this->move(sf::Vector2f(-100*deltaTime.asSeconds(), 100*deltaTime.asSeconds()));
 	}
 }

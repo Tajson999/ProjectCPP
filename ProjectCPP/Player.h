@@ -32,16 +32,16 @@ public:
 	int& getScore();
 	void setScore(int s);
 	void setShotCD(double CD);
-	double getShotCD();
-	double getMissileCD();
+	double getShotCD() const;
+	double getMissileCD() const;
 	void setMissileCD(double CD);
 	BasicShot*** getShotArr();
 	Missile*** getMissileArr();
-	int getBombCount();
+	int getBombCount() const;
 	void setBombCount(int count);
 	void addMissile();
 	void subtractMissile();
-	int getNrOfMissiles();
+	int getNrOfMissiles() const;
 
 	//powerups
 	void addOneShot();

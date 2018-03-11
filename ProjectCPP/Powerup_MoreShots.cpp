@@ -21,7 +21,7 @@ Powerup_MoreShots::~Powerup_MoreShots() {
 
 void Powerup_MoreShots::update(sf::Time deltaTime) {
 	if (this->getActive() == 1) {
-		this->move(sf::Vector2f(0, .5 * deltaTime.asMilliseconds()));
+		this->move(sf::Vector2f(0, 500 * deltaTime.asSeconds()));
 	}
 }
 

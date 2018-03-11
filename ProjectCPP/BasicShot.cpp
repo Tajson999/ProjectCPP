@@ -22,8 +22,8 @@ BasicShot::~BasicShot() {
 
 void BasicShot::update(sf::Time deltaTime) {
 
-	this->move(sf::Vector2f(0, -1 * deltaTime.asMilliseconds()));
-	this->setLifeSpan(this->getLifeSpan() - deltaTime.asMilliseconds());
+	this->move(sf::Vector2f(0, -800 * deltaTime.asSeconds()));
+	this->setLifeSpan(this->getLifeSpan() - deltaTime.asSeconds());
 }
 
 

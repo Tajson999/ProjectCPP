@@ -61,7 +61,7 @@ void BasicEnemy::update(sf::Time deltaTime) {
 	else {
 		this->moveSpriteRect(-66, 0);
 	}
-	this->radiant += (.4 * deltaTime.asMilliseconds() * 3.1415) / 180;
+	this->radiant += (400 * deltaTime.asSeconds() * 3.1415) / 180;
 	int radius = 100;
 	//generate absolute cordiantes
 	int newX = cos(this->radiant) * radius;

@@ -19,7 +19,7 @@ Powerup_Bomb::~Powerup_Bomb() {
 
 void Powerup_Bomb::update(sf::Time deltaTime) {
 	if (this->getActive() == 1) {
-		this->move(sf::Vector2f(0, .5 * deltaTime.asMilliseconds()));
+		this->move(sf::Vector2f(0, 500 * deltaTime.asSeconds()));
 	}
 }
 

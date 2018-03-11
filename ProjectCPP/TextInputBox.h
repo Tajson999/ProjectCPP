@@ -13,7 +13,7 @@ public:
 	TextInputBox();
 	~TextInputBox();
 
-	string getInputText();
+	string getInputText() const;
 	void resetInputText();
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;

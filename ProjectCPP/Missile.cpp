@@ -40,7 +40,7 @@ void Missile::setSpeed(double speed){
 	this->speed = speed;
 }
 
-double Missile::getSpeed(){
+double Missile::getSpeed() const {
 	return this->speed;
 }
 
@@ -60,7 +60,7 @@ void Missile::update(sf::Time deltaTime){
 	if (this->getActive() == 1) {
 		//cout << "missile target cords is" << this->target->getSprite().getPosition().x << "," << this->target->getSprite().getPosition().y << endl;
 		if (this->speed < 1) {
-			this->speed += 0.05 *deltaTime.asMilliseconds();
+			this->speed += 50 *deltaTime.asSeconds();
 		}
 		if (this->target->getSprite().getPosition().y > 0) {
 			if (this->reDirectCD <= 0 && this->getSprite().getPosition().y  > this->target->getSprite().getPosition().y) {
@@ -69,22 +69,22 @@ void Missile::update(sf::Time deltaTime){
 				double absAngle = atan(deltaY / deltaX);
 				this->direction = absAngle;
 				if (this->getSprite().getPosition().x < this->target->getSprite().getPosition().x) {
-					this->move(sf::Vector2f(cos(this->direction) * speed * deltaTime.asMilliseconds(),  -speed *.5* deltaTime.asMilliseconds() + .1));
+					this->move(sf::Vector2f(cos(this->direction) * speed * deltaTime.asSeconds(),  -speed *500* deltaTime.asSeconds() + .1));
 				}
 				else {
-					this->move(sf::Vector2f(-cos(this->direction)  * speed * deltaTime.asMilliseconds(), -speed *.5* deltaTime.asMilliseconds() + .1));
+					this->move(sf::Vector2f(-cos(this->direction)  * speed * deltaTime.asSeconds(), -speed *500* deltaTime.asSeconds() + .1));
 				}
 				this->reDirectCD = .2;
 			}
 			else {
-				this->move(sf::Vector2f(0, -speed *.5* deltaTime.asMilliseconds()));
-				this->reDirectCD -= deltaTime.asMilliseconds();
+				this->move(sf::Vector2f(0, -speed *500* deltaTime.asSeconds()));
+				this->reDirectCD -= deltaTime.asSeconds();
 			}
 		}
 		else {
-			this->move(sf::Vector2f(0, -speed *.5* deltaTime.asMilliseconds()));
+			this->move(sf::Vector2f(0, -speed *500* deltaTime.asSeconds()));
 		}
 		
-		this->setLifeSpan(this->getLifeSpan() - deltaTime.asMilliseconds());
+		this->setLifeSpan(this->getLifeSpan() - deltaTime.asSeconds());
 	}
 }

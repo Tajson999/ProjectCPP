@@ -17,7 +17,7 @@ public:
 	~Missile();
 
 	void setSpeed(double speed);
-	double getSpeed();
+	double getSpeed() const;
 	void setDirection(double d);
 	void setTarget(Enemy *target);
 	void setReDirectCD(double CD);

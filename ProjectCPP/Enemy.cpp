@@ -19,7 +19,7 @@ void Enemy::setActive(int a){
 	this->active = a;
 }
 
-int Enemy::getActive()
+int Enemy::getActive() const
 {
 	return this->active;
 }
@@ -28,7 +28,7 @@ void Enemy::setLife(double a){
 	this->life = a;
 }
 
-double Enemy::getLife()
+double Enemy::getLife() const
 {
 	return this->life;
 }
@@ -37,7 +37,7 @@ void Enemy::setDamage(double damage) {
 	this->damage = damage;
 }
 
-double Enemy::getDamage(){
+double Enemy::getDamage() const {
 	return this->damage;
 }
 
@@ -46,7 +46,7 @@ void Enemy::deactivate() {
 	this->setSpritePosition(sf::Vector2f(-200, -200));
 }
 
-bool Enemy::isDestroyed(sf::Vector2u viewport){
+bool Enemy::isDestroyed(sf::Vector2u viewport) const {
 	bool destroyed = false;
 	//if active == 1 && (sprite.x < viewport.x || sprite.x + sprite.height < 0 || sprite.y > viewport.y || sprite.y + sprite.width < 0)
 	if (this->getActive() == 1 && ((viewport.x < this->getSprite().getGlobalBounds().left || 0 > this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().height) || (viewport.y < this->getSprite().getGlobalBounds().top) || 0 > this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().width)) {

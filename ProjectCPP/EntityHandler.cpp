@@ -77,7 +77,7 @@ void EntityHandler::setCapacity(int c) {
 	this->capacity = c;
 }
 
-int EntityHandler::getCapacity() {
+int EntityHandler::getCapacity() const {
 	return this->capacity;
 }
 

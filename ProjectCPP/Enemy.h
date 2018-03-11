@@ -13,15 +13,15 @@ public:
 	~Enemy();
 
 	void setActive(int a);
-	int getActive();
+	int getActive() const;
 	void setLife(double a);
-	double getLife();
+	double getLife() const;
 	void setDamage(double damage);
-	double getDamage();
+	double getDamage() const;
 	void deactivate();
 
 	virtual void update(sf::Time deltaTime) = 0;
-	bool isDestroyed(sf::Vector2u viewport);
+	bool isDestroyed(sf::Vector2u viewport) const;
 	bool isDestroyed(Shot*** missileArr, int shotArrSize, int &score);
 
 };

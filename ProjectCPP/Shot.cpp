@@ -13,14 +13,14 @@ Shot::Shot(double lifespan){
 Shot::~Shot()
 {
 }
-int Shot::getLifeSpan() {
+int Shot::getLifeSpan() const {
 	return this->lifeSpan;
 }
 
 void Shot::setLifeSpan(int l) {
 	this->lifeSpan = l;
 }
-int Shot::getActive(){
+int Shot::getActive() const {
 	return this->active;
 }
 

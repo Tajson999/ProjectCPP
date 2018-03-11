@@ -102,7 +102,7 @@ void Player::setLife(double l) {
 	this->life = l;
 }
 
-int& Player::getScore() {
+int& Player::getScore(){
 	return (this->score);
 }
 
@@ -114,11 +114,11 @@ void Player::setShotCD(double CD){
 	this->shotCD = CD;
 }
 
-double Player::getShotCD(){
+double Player::getShotCD() const {
 	return this->shotCD;
 }
 
-double Player::getMissileCD(){
+double Player::getMissileCD() const {
 	return this->missileCD;
 }
 
@@ -140,7 +140,7 @@ void Player::addBomb() {
 	}
 }
 
-int Player::getBombCount() {
+int Player::getBombCount()  const {
 	return this->bombCount;
 }
 
@@ -156,7 +156,7 @@ void Player::subtractMissile() {
 	this->nrOfMissiles--;
 }
 
-int Player::getNrOfMissiles() {
+int Player::getNrOfMissiles() const {
 	return this->nrOfMissiles;
 }
 
@@ -200,19 +200,19 @@ void Player::takeDamage(double damage) {
 }
 
 void Player::moveUp(sf::Time deltaTime) {
-	this->move(sf::Vector2f(0, -.5 * deltaTime.asMilliseconds()));
+	this->move(sf::Vector2f(0, -500 * deltaTime.asSeconds()));
 }
 
 void Player::moveDown(sf::Time deltaTime) {
-	this->move(sf::Vector2f(0, .5 * deltaTime.asMilliseconds()));
+	this->move(sf::Vector2f(0, 500 * deltaTime.asSeconds()));
 }
 
 void Player::moveRight(sf::Time deltaTime) {
-	this->move(sf::Vector2f(.5 * deltaTime.asMilliseconds(), 0));
+	this->move(sf::Vector2f(500 * deltaTime.asSeconds(), 0));
 }
 
 void Player::moveLeft(sf::Time deltaTime) {
-	this->move(sf::Vector2f(-.5 * deltaTime.asMilliseconds(), 0));
+	this->move(sf::Vector2f(-500 * deltaTime.asSeconds(), 0));
 }
 
 void Player::update( sf::Time deltaTime) {
@@ -287,7 +287,7 @@ void Player::shoot(){
 			if (this->shotArr[i]->getActive() == 0) {
 				this->shotArr[i]->setSpritePosition(sf::Vector2f(spriteLeftFlank + launchCord, this->getSprite().getPosition().y));
 				this->shotArr[i]->setActive(1);
-				this->shotArr[i]->setLifeSpan(800);
+				this->shotArr[i]->setLifeSpan(4000);
 				nrOfPlacedShots++;
 				if (nrOfPlacedShots == this->nrOfCannons) {
 					shoot = true;

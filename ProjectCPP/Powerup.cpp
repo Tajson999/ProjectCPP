@@ -7,7 +7,7 @@ Powerup::Powerup() {
 Powerup::~Powerup() {
 }
 
-int Powerup::getActive() {
+int Powerup::getActive() const {
 	return this->active;
 }
 
@@ -15,7 +15,7 @@ void Powerup::setActive(int a) {
 	this->active = a;
 }
 
-bool Powerup::isOutOfBounds(sf::Vector2u viewport) {
+bool Powerup::isOutOfBounds(sf::Vector2u viewport)  const {
 	bool out = false;
 	//if active == 1 && (sprite.x < viewport.x || sprite.x + sprite.height < 0 || sprite.y > viewport.y || sprite.y + sprite.width < 0)
 	if (this->getActive() == 1 && ((viewport.x < this->getSprite().getGlobalBounds().left || 0 > this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().height) || (viewport.y < this->getSprite().getGlobalBounds().top) || 0 > this->getSprite().getGlobalBounds().left + this->getSprite().getGlobalBounds().width)) {
@@ -25,6 +25,6 @@ bool Powerup::isOutOfBounds(sf::Vector2u viewport) {
 	return out;
 }
 
-bool Powerup::isTriggered(int x, int y, int length, int height) {
+bool Powerup::isTriggered(int x, int y, int length, int height)  const {
 	return this->getSprite().getGlobalBounds().intersects(sf::FloatRect(x, y, length, height));;
 }
